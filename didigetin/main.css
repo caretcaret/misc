@@ -56,18 +56,18 @@ p {
 }
 table {
   margin: auto;
-  width: 550px;
+  width: 700px;
   padding: 25px;
   border: 1px solid #a0a0a0;
   font-size: 20px;
 }
 td.college {
-  width: 300px;
+  width: 375px;
   text-align: right;
   padding-right: 10px;
 }
 td.result {
-  width: 200px;
+  width: 275px;
   text-align: left;
   padding-left: 10px;
 }
