@@ -1,0 +1,3 @@
+[submodule "piesaresquares-wikidata"]
+    path = wikidata
+    url = https://github.com/caretcaret/piesaresquares-wikidata.git
