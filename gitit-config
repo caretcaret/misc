@@ -3,7 +3,7 @@
 port: 8080
 # sets the port on which the web server will run.
 
-wiki-title: pies are squares
+wiki-title: piesaresquares
 # the title of the wiki.
 
 repository-type: Git
@@ -199,7 +199,7 @@ reset-password-message:
   > Dear $username$:
   > 
   > To reset your password, please follow the link below:
-  > http://$hostname$:$port$$resetlink$
+  > http://$hostname$$resetlink$
   > 
   > Yours sincerely,
   > The Wiki Master
@@ -223,7 +223,7 @@ use-feed: yes
 # specifies whether an ATOM feed should be enabled (for the site and for
 # individual pages)
 
-base-url: http://piesaresquares.com/
+base-url: http://me.piesaresquares.com/
 # the base URL of the wiki, to be used in constructing feed IDs
 # and RPX token_urls.  Set this if use-feed is 'yes' or
 # authentication-method is 'rpx'.
@@ -254,7 +254,7 @@ pandoc-user-data:
 # specified, $HOME/.pandoc will be searched. See pandoc's README for
 # more information.
 
-xss-sanitize: yes
+xss-sanitize: no
 # if yes, all HTML (including that produced by pandoc) is filtered
 # through xss-sanitize.  Set to no only if you trust all of your users.
 
