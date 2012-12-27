@@ -129,7 +129,7 @@ plugins:
 # plugins: plugins/DotPlugin
 # plugins: Gitit.Plugin.InterwikiLinks
 
-use-cache: no
+use-cache: yes
 # specifies whether to cache rendered pages.  Note that if use-feed
 # is selected, feeds will be cached regardless of the value of use-cache.
 
