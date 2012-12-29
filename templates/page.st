@@ -6,7 +6,7 @@
 	<link href="$base$/_feed/" type="application/atom+xml" rel="alternate" title="$wikititle$ Atom feed">
 	<link href="$base$/_feed$pageUrl$" type="application/atom+xml" rel="alternate" title="$wikititle$: $pagetitle$ Atom feed">
 	<link href="$base$/css/normalize.css" rel="stylesheet">
-	<link href="$base$/css/custom.css" rel="stylesheet">
+	<link href="$base$/css/screen.css" rel="stylesheet">
 </head>
 <body>
 	<header>
