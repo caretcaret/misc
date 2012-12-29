@@ -1,46 +1,53 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    $if(feed)$
-    <link href="$base$/_feed/" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed" />
-    <link href="$base$/_feed$pageUrl$" type="application/atom+xml" rel="alternate" title="This page's ATOM Feed" />
-    $endif$
-    <title>$wikititle$ - $pagetitle$</title>
-    $if(printable)$
-    <link href="$base$/css/print.css" rel="stylesheet" media="all" type= "text/css" />
-    $else$
-    <link href="$base$/css/custom.css" rel="stylesheet" media="screen, projection" type="text/css" />
-    <link href="$base$/css/print.css" rel="stylesheet" media="print" type= "text/css" />
-    $endif$
-    <!--[if IE]><link href="$base$/css/ie.css" rel="stylesheet" media="screen, projection" type="text/css" /><![endif]-->
-  </head>
-  <body>
-    <div id="doc3" class="yui-t1">
-        <div id="yui-main">
-          <div id="maincol" class="yui-b">
-            $userbox()$
-            $tabs$ 
-            $content()$
-            $footer()$
-          </div>
-        </div>
-        <div id="sidebar" class="yui-b first">
-          $logo()$
-          $if(sitenav)$
-            $sitenav()$
-          $endif$
-          $if(pagetools)$
-            $pagetools()$
-          $endif$
-          $if(markuphelp)$
-            $markuphelp()$
-          $endif$
-        </div>
-    </div>
-    $javascripts$
-    $expire()$
-    $getuser()$
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>$pagetitle$ - $wikititle$</title>
+	<link href="$base$/_feed/" type="application/atom+xml" rel="alternate" title="$wikititle$ Atom feed">
+	<link href="$base$/_feed$pageUrl$" type="application/atom+xml" rel="alternate" title="$wikititle$: $pagetitle$ Atom feed">
+	<link href="$base$/css/normalize.css" rel="stylesheet">
+	<style>
+	/* screen.css */
+	body { background-color: #077; margin: 0; }
+	#site-nav, #article-nav h1, #article-nav ul { border: 1px solid #000; }
+	header { background-color: #33f; }
+	#site-nav { text-align: center; margin: auto; background-color: #44f; float: right; }
+	#article-nav { margin: auto; background-color: #0a0; }
+	#article-nav h1 { display: inline; }
+	#article-nav ul { float: right; }
+	#TOC { position: absolute; height: 100%; background-color: #ffd; right: 0; }
+	#TOC ul { margin-top: 15px; }
+	article { position: relative; margin: auto; background-color: #fff; }
+	article * { margin-top: 0; }
+	article:before, article:after { content: " "; display: table; }
+	article:after { clear: both; } /* clearfix */
+	footer { text-align: center; margin: auto; background-color: #00d; }
+	@media only screen and (min-width: 768px) {
+
+	}
+
+	@media only screen and (min-width: 992px) {
+		#article-nav { max-width: 992px; padding-left: 55px; padding-right: 55px; height: 55px; border-radius: 50%; border-bottom: 2px solid #aaf; }
+		#TOC { width: 270px; padding: 0 15px; top: 0; }
+		article { max-width: 692px; padding-left: 55px; padding-right: 355px; padding-top: 15px; }
+		footer { max-width: 992px; padding-left: 55px; padding-right: 55px; height: 55px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; margin-bottom: 55px; }
+		/* make font size smaller */
+	}
+	</style>
+</head>
+<body>
+	<header>
+		<a href="$base$"><img src="$base$/img/logo.png" alt="lilypad" height="100" width="100"></a>
+		<nav id="site-nav">stuff</nav>
+		<nav id="article-nav">
+			<a href="$base$$pageUrl$"><h1>$pagetitle$</h1></a>
+			<ul><!-- icons here --></ul>
+		</nav>
+	</header>
+	<article>
+		$content$
+		<!-- if(ispage) put disqus here -->
+	</article>
+	<footer>powered by <a href="http://github.com/jgm/gitit/tree/master/">gitit</a></footer>
+</body>
 </html>

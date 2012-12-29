@@ -223,7 +223,7 @@ use-feed: yes
 # specifies whether an ATOM feed should be enabled (for the site and for
 # individual pages)
 
-base-url: http://me.piesaresquares.com/
+base-url: localhost
 # the base URL of the wiki, to be used in constructing feed IDs
 # and RPX token_urls.  Set this if use-feed is 'yes' or
 # authentication-method is 'rpx'.
