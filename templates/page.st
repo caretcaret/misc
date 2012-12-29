@@ -12,6 +12,8 @@
 	<header>
 		<nav id="site-nav">
 			<ul>
+				<li>Login</li>
+				<li>Logout</li>
 				<li>Front page</li>
 				<li>All pages</li>
 				<li>Categories</li>
@@ -25,8 +27,9 @@
 			</ul>
 		</nav>
 		<nav id="article-nav">
-			<a href="$base$$pageUrl$"><h1>$pagetitle$</h1></a>
+			<h1><a href="$base$$pageUrl$">$pagetitle$</a></h1>
 			<ul>
+				<li>Tabs</li>
 				<li>Page source</li>
 				<li>Printable version</li>
 				<li>Delete this page</li>
