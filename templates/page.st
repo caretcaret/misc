@@ -12,29 +12,40 @@
 	<header>
 		<nav id="site-nav">
 			<ul>
-				<li>Login</li>
-				<li>Logout</li>
-				<li>Front page</li>
-				<li>All pages</li>
-				<li>Categories</li>
-				<li>Random page</li>
-				<li>Recent activity</li>
-				<li>Upload a file</li>
-				<li>Atom feed</li>
-				<li>Help</li>
-				<li>Search</li>
-				<li>Goto</li>
+				<li class="icon frontpage" title="Home"><a href="">Home</a></li>
+				<li class="icon allpages" title="All pages"><a href="">All pages</a></li>
+				<li class="icon categories" title="Categories"><a href="">Categories</a></li>
+				<li class="icon randompage" title="Random page"><a href="">Random page</a></li>
+				<li class="icon recentactivity" title="Recent activity"><a href="">Recent activity</a></li>
+				<li class="icon upload" title="Upload"><a href="">Upload</a></li>
+				<li class="icon help" title="Help"><a href="">Help</a></li>
+				<li class="icon feed" title="Atom feed for this site"><a href="">Atom feed</a></li>
+				<li class="icon loggedin" title="Logged in as _ (Logout)"><a href="">Logout</a></li>
+				<li class="icon loggedout" title="Login"><a href="">Login</a></li>
+				<li>
+					<form action="/_go" method="post" id="goform">
+						<input type="text" name="gotopage" id="gotopage">
+						<input type="button" name="go" id="go" value="Go">
+						<input type="button" name="dupesearch" id="dupesearch" value="Search">
+					</form>
+					<form action="/_search" method="post" id="searchform">
+						<input type="hidden" name="patterns" id="patterns">
+						<input type="hidden" name="search" id="search" value="Search">
+					</form>
+				</li>
 			</ul>
 		</nav>
 		<nav id="article-nav">
 			<h1><a href="$base$$pageUrl$">$pagetitle$</a></h1>
 			<ul>
-				<li>Tabs</li>
-				<li>Page source</li>
-				<li>Printable version</li>
-				<li>Delete this page</li>
-				<li>Atom feed</li>
-				<li>Export</li>
+				<li class="icon pagesource" title="Page source"><a href="">Page source</a></li>
+				<li class="icon print" title="Printable version"><a href="">Printable version</a></li>
+				<li class="icon delete" title="Delete this page"><a href="">Delete this page</a></li>
+				<li class="icon feed" title="Atom feed for this page"><a href="">Atom feed</a></li>
+				<li>$exportbox$</li>
+			</ul>	
+			<ul class="tabs">
+				<li>Tabs<li>
 			</ul>
 		</nav>
 	</header>
