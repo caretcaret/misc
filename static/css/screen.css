@@ -91,8 +91,6 @@ ul.messages > li { margin-left: -3em; color: #b14793; list-style: none; text-sha
 .index li.page { background-image: url(../img/icons/page.png); }
 .index li.folder { background-image: url(../img/icons/folder.png); }
 
-.login { display: none; }
-
 /* Style the footnotes; from gwern.net */
 #footnotediv div {
 background-color: white;
@@ -151,10 +149,11 @@ nav li { display: inline-block; }
 	article * { margin-top: 0; }
 	footer { max-width: 1150px; height: 40px; border-radius: 0 0 10px 10px; border-top: 1px solid #ffffff; background-image: -webkit-linear-gradient(top, #f1f3f6, #d3dae1); background-image: linear-gradient(top, #f1f3f6, #d3dae1); margin-bottom: 55px; line-height: 40px; }
 	nav ul { margin: 0; padding: 0; }
-	nav li { line-height: 55px; }
+	nav li { line-height: 55px; margin: 0; }
 	nav input[type="text"], nav input[type="text"]:focus { padding: 3px 8px; color: white; height: 24px; margin: 0; background-color: #0f5d87; border-color: #0c4868; box-shadow: inset 0 0 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px 1px rgba(255, 255, 255, 0.15); }
 	nav input[type="submit"] { height: 30px; }
 	.icon a { vertical-align: middle; text-align: left; display: inline-block; background-repeat: no-repeat; height: 32px; width: 32px; text-indent: -9001px; overflow: hidden; }
+	.icon a:hover { background-color: rgba(255, 255, 255, 0.5); }
 	#exportbox select { height: 32px; margin: 0; background-color: #56a339; border-color: #498a30; box-shadow: inset 0 0 1px 1px rgba(0, 0, 0, 0.15), 0, 0, 1px 1px rgba(255, 255, 255, 0.15); }
 	#exportbox input[type="submit"] { height: 32px; padding: 0 8px; }
 }

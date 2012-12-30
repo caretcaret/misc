@@ -22,8 +22,8 @@
 				<li class="icon upload" title="Upload"><a href="$base$/_upload">Upload</a></li>
 				<li class="icon help" title="Help"><a href="$base$/Help">Help</a></li>
 				<li class="icon feed" title="Atom feed for this site"><a href="$base$/_feed" type="application/atom+xml" rel="alternate">Atom feed</a></li>
-				<li class="icon loggedin" title="Logged in as _ (Logout)"><a id="logoutlink" href="$base$/_logout">Logout</a></li>
-				<li class="icon loggedout" title="Login"><a id="loginlink" href="$base$/_login">Login</a></li>
+				<li class="icon loggedin" title="Logout"><a href="$base$/_logout">Logout</a></li>
+				<li class="icon loggedout" title="Login"><a href="$base$/_login">Login</a></li>
 				<li>
 					<form action="/_go" method="post" id="goform">
 						<input type="text" name="gotopage" id="gotopage">
@@ -58,5 +58,21 @@
 	</article>
 	<footer>powered by <a href="http://github.com/jgm/gitit/tree/master/">gitit</a></footer>
 	<div>&nbsp;</div>
+	$javascripts$
+	<script>
+		/* <![CDATA[ */
+		  \$.get("$base$/_user", {}, function(username, status) {
+		     \$(".loggedin").attr('title', 'Logged in as ' + username + ' (click to logout)');
+		     \$("#username").text(username);
+		     if (username == "") {  // nobody logged in
+		        \$(".loggedin").hide();
+		        \$(".loggedout").show();
+		     } else {
+		        \$(".loggedin").show();
+		        \$(".loggedout").hide();
+		     };
+		   });
+		/* ]]> */
+	</script>
 </body>
 </html>
