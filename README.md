@@ -8,7 +8,7 @@ petbot is a framework for creating a reddit bot that can sustain conversation wi
 If you want to run a *responsive* reddit bot with *multiple* behaviors without worrying about the communication between reddit and your bot.
 
 ##What platform does it run on?
-petbot is written in Python 3.
+petbot is written in **Python 3**. Be sure to install `requests` and run `petbot.py` using Python 3 if you have both Python 2 and Python 3 installed.
 
 ##How do I install it?
 Install the `requests` library by running
@@ -18,7 +18,11 @@ Install the `requests` library by running
 Put any necessary plugin behavior that you want in the plugins folder.
 
 ##How do I run it?
-Edit `config.ini` and run `petbot.py`. (Command line options parser to come later.)
+Edit `config.ini` appropriately (comments included) and run
+
+    python petbot.py
+
+Consult `-h` or `--help` for options to override your config file.
 
 ##How do I run the tests?
 No tests (yet).
