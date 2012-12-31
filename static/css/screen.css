@@ -128,7 +128,7 @@ code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
 
 /* layout */
-html, body { height: 100%; padding: 0; margin: 0; background-color: #116796; background-image: url("/img/white_wave.png"), -webkit-linear-gradient(top, #27a2e6, #0e5278); background-image: url("img/white_wave.png"), linear-gradient(top, #27a2e6, #0e5278); background-attachment: fixed, fixed; }
+html, body { height: 100%; padding: 0; margin: 0; background-color: #27a2e6; background-image: url("/img/white_wave.png"), -webkit-linear-gradient(top, #27a2e6, #1a7aaf); background-image: url("img/white_wave.png"), linear-gradient(top, #27a2e6, #1a7aaf); background-attachment: fixed, fixed; }
 header { background: #116796 url("/img/white_wave.png"); }
 #site-nav { margin: auto; }
 #site-nav ul { display: inline; }
