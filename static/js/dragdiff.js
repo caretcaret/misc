@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $("#content").prepend("<p>Drag one revision onto another to see differences.</p>");
+    $("article").prepend("<p>Drag one revision onto another to see differences.</p>");
     $(".difflink").draggable({helper: "clone"}); 
     $(".difflink").droppable({
          accept: ".difflink",
@@ -13,9 +13,9 @@ $(document).ready(function(){
             } else {
                 var toRev   = $(this).attr("revision");
                 var fromRev = $(ui.draggable).attr("revision");
-            };
-            location.href = diffurl + '?from=' + fromRev + '&to=' + toRev;
             }
-        });
+            location.href = diffurl + '?from=' + fromRev + '&to=' + toRev;
+         }
+    });
 });
 

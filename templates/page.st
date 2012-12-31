@@ -14,7 +14,7 @@
 	<header>
 		<nav id="site-nav">
 			<ul>
-				<li class="icon frontpage" title="Home"><a href="$base$">Home</a></li>
+				<li class="icon frontpage" title="Home"><a href="$base$/">Home</a></li>
 				<li class="icon allpages" title="All pages"><a href="$base$/_index">All pages</a></li>
 				<li class="icon categories" title="Categories"><a href="$base$/_categories">Categories</a></li>
 				<li class="icon randompage" title="Random page"><a href="$base$/_random">Random page</a></li>
@@ -24,21 +24,20 @@
 				<li class="icon feed" title="Atom feed for this site"><a href="$base$/_feed" type="application/atom+xml" rel="alternate">Atom feed</a></li>
 				<li class="icon loggedin" title="Logout"><a href="$base$/_logout">Logout</a></li>
 				<li class="icon loggedout" title="Login"><a href="$base$/_login">Login</a></li>
-				<li>
-					<form action="/_go" method="post" id="goform">
-						<input type="text" name="gotopage" id="gotopage">
-						<input type="button" name="go" id="go" value="Go">
-						<input type="button" name="dupesearch" id="dupesearch" value="Search">
-					</form>
-					<form action="/_search" method="post" id="searchform">
-						<input type="hidden" name="patterns" id="patterns">
-						<input type="hidden" name="search" id="search" value="Search">
-					</form>
-				</li>
 			</ul>
+			<form action="/_go" method="post" id="goform">
+				<input type="text" name="gotopage" id="gotopage">
+				<input type="button" name="go" id="go" value="Go">
+				<input type="button" name="dupesearch" id="dupesearch" value="Search">
+			</form>
+			<form action="/_search" method="post" id="searchform">
+				<input type="hidden" name="patterns" id="patterns">
+				<input type="hidden" name="search" id="search" value="Search">
+			</form>
 		</nav>
 		<nav id="article-nav">
 			<h1><a href="$base$$pageUrl$">$pagetitle$</a></h1>
+			$tabs$
 			<ul>
 				<li class="icon pagesource" title="Page source"><a href="$base$/_showraw$pageUrl$$if(revision)$?revision=$revision$$endif$">Page source</a></li>
 				<li class="icon print" title="Printable version"><a href="$base$$pageUrl$?printable$if(revision)$&amp;revision=$revision$$endif$">Printable version</a></li>
@@ -46,7 +45,6 @@
 				<li class="icon feed" title="Atom feed for this page"><a href="$base$/_feed$pageUrl$" type="application/atom+xml" rel="alternate">Atom feed</a></li>
 				<li>$exportbox$</li>
 			</ul>
-			$tabs$
 		</nav>
 	</header>
 	<article$if(ispage)$ class="ispage"$endif$>
@@ -61,6 +59,13 @@
 	$javascripts$
 	<script>
 		/* <![CDATA[ */
+		  \$('#go').click(function() {
+		    \$('#goform').submit();
+		  });
+		  \$('#dupesearch').click(function() {
+		    \$('#patterns').attr('value', \$('#gotopage').attr('value'));
+		    \$('#searchform').submit();
+		  });
 		  \$.get("$base$/_user", {}, function(username, status) {
 		     \$(".loggedin").attr('title', 'Logged in as ' + username + ' (click to logout)');
 		     \$("#username").text(username);
