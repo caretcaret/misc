@@ -52,6 +52,7 @@ a:hover { text-decoration: underline; color: #3aace9; text-shadow: white 0 1px; 
 a:active,  a:focus { text-decoration: underline; color: #971168; text-shadow: white 0 1px; }
 
 article img { box-sizing: border-box; padding: 0.5em; background-color: white; border-radius: 0.5em; box-shadow: rgba(0, 0, 0, 0.15) 0 1px 4px; }
+#disqus_thread img { box-sizing: inherit; padding: inherit; background-color: inherit; border-radius: inherit; box-shadow: inherit; }
 
 h1 a:link, h1 a:active, h1 a:hover, h1 a:focus, h1 a:visited,
 h2 a:link, h2 a:active, h2 a:hover, h2 a:focus, h2 a:visited,

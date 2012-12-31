@@ -56,9 +56,23 @@
 		$if(revision)$<h2>Revision $revision$</h2>$endif$
 		$if(messages)$<ul class="messages">$messages:listitem()$</ul>$endif$
 		$content$
-		<!-- if(ispage) put disqus here -->
+		$if(ispage)$
+		<div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	        var disqus_shortname = 'piesaresquares-wiki';
+	        var disqus_developer = 1;
+	        var disqus_identifier = '$pageUrl$';
+	        var disqus_title = '$pagetitle$';
+	        (function() {
+	            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+	            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	        })();
+	    </script>
+    	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>    
+		$endif$
 	</article>
-	<footer>powered by <a href="http://github.com/jgm/gitit/tree/master/">gitit</a></footer>
+	<footer>powered by <a href="https://github.com/jgm/gitit/tree/master/">gitit</a> and <a href="http://disqus.com/">disqus</a></footer>
 	<div>&nbsp;</div>
 	$javascripts$
 	<script>
