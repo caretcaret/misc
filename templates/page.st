@@ -60,7 +60,6 @@
 		<div id="disqus_thread"></div>
 	    <script type="text/javascript">
 	        var disqus_shortname = 'piesaresquares-wiki';
-	        var disqus_developer = 1;
 	        var disqus_identifier = '$pageUrl$';
 	        var disqus_title = '$pagetitle$';
 	        (function() {
