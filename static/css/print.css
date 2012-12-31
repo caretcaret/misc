@@ -39,10 +39,11 @@ tr {page-break-inside: avoid;}
 /*hide various parts from the site*/
 
 #maincol { margin-left: 1em; margin-right: 1em; border: none; }
-#content { border: none; }
+article { border: none; }
 #TOC, footer, nav ul {display:none;}
 #categoryList { display: none; }
 h1 a:link, h2 a:link, h3 a:link, h4 a:link, h5 a:link, h6 a:link { text-decoration: none; }
 #article-nav h1 { font-size: 220%; }
 td.lineNumbers { display: none; }
 ul.tabs { display: none; }
+form { display: none; }

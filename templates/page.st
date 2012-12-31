@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>$pagetitle$ - $wikititle$</title>
-	<link href="$base$/_feed/" type="application/atom+xml" rel="alternate" title="$wikititle$ Atom feed">
-	<link href="$base$/_feed$pageUrl$" type="application/atom+xml" rel="alternate" title="$wikititle$: $pagetitle$ Atom feed">
+	$if(feed)$<link href="$base$/_feed/" type="application/atom+xml" rel="alternate" title="$wikititle$ Atom feed">
+	<link href="$base$/_feed$pageUrl$" type="application/atom+xml" rel="alternate" title="$wikititle$: $pagetitle$ Atom feed">$endif$
 	<link href="$base$/css/normalize.css" rel="stylesheet">
 	$if(printable)$<link href="$base$/css/print.css" rel="stylesheet" media="all">
 	$else$<link href="$base$/css/screen.css" rel="stylesheet" media="screen, projection">
@@ -15,13 +15,15 @@
 		<nav id="site-nav">
 			<ul>
 				<li class="icon frontpage" title="Home"><a href="$base$/">Home</a></li>
+				$if(sitenav)$
 				<li class="icon allpages" title="All pages"><a href="$base$/_index">All pages</a></li>
 				<li class="icon categories" title="Categories"><a href="$base$/_categories">Categories</a></li>
 				<li class="icon randompage" title="Random page"><a href="$base$/_random">Random page</a></li>
 				<li class="icon recentactivity" title="Recent activity"><a href="$base$/_activity">Recent activity</a></li>
-				<li class="icon upload" title="Upload"><a href="$base$/_upload">Upload</a></li>
+				$if(wikiupload)$<li class="icon upload" title="Upload"><a href="$base$/_upload">Upload</a></li>$endif$
 				<li class="icon help" title="Help"><a href="$base$/Help">Help</a></li>
 				<li class="icon feed" title="Atom feed for this site"><a href="$base$/_feed" type="application/atom+xml" rel="alternate">Atom feed</a></li>
+				$endif$
 				<li class="icon loggedin" title="Logout"><a href="$base$/_logout">Logout</a></li>
 				<li class="icon loggedout" title="Login"><a href="$base$/_login">Login</a></li>
 			</ul>
@@ -38,6 +40,7 @@
 		<nav id="article-nav">
 			<h1><a href="$base$$pageUrl$">$pagetitle$</a></h1>
 			$tabs$
+			$if(pagetools)$
 			<ul>
 				<li class="icon pagesource" title="Page source"><a href="$base$/_showraw$pageUrl$$if(revision)$?revision=$revision$$endif$">Page source</a></li>
 				<li class="icon print" title="Printable version"><a href="$base$$pageUrl$?printable$if(revision)$&amp;revision=$revision$$endif$">Printable version</a></li>
@@ -45,6 +48,7 @@
 				<li class="icon feed" title="Atom feed for this page"><a href="$base$/_feed$pageUrl$" type="application/atom+xml" rel="alternate">Atom feed</a></li>
 				<li>$exportbox$</li>
 			</ul>
+			$endif$
 		</nav>
 	</header>
 	<article$if(ispage)$ class="ispage"$endif$>
