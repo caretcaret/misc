@@ -20,7 +20,12 @@ class Petbot:
 		pass
 
 	def login(self):
+		# check that credentials exist
+		if any([len(x) == 0 for x in [self.owner_name, self.bot_name, self.bot_password]]):
+			print("Error: missing owner name, bot name, or bot password")
+			sys.exit()
 		try:
+			# send request
 			payload = {
 				'user': self.bot_name,
 				'passwd': self.bot_password,
@@ -28,10 +33,12 @@ class Petbot:
 			}
 			r = requests.post('https://ssl.reddit.com/api/login', params=payload, headers=self.headers)
 			data = r.json()
+			# check for errors
 			if len(data['json']['errors']) != 0:
 				print("Error logging into reddit:")
 				print('\n'.join(data['json']['errors']))
 				sys.exit()
+			# get and store data
 			self.modhash = data['json']['data']['modhash']
 			self.headers['Cookie'] = 'reddit_session=' + data['json']['data']['cookie']
 			self.last_api_call = datetime.datetime.utcnow()
@@ -70,7 +77,7 @@ if __name__ == '__main__':
 	parser.add_argument('-v', action='store_true', dest='verbose', default=False, help="Verbose printout.")
 	try:
 		ns = parser.parse_args()
-		arguments['behavior'] = {'verbose': ns.verbose }
+		arguments['behavior'] = { 'verbose': ns.verbose }
 		config_filename = ns.config_filename
 	except IOError as e:
 		print("Error parsing arguments.")
@@ -82,8 +89,11 @@ if __name__ == '__main__':
 	try:
 		with open(config_filename, 'r') as config_file:
 			config = configparser.ConfigParser()
+			# fallback settings
 			config.read_dict(DEFAULT_SETTINGS)
+			# load settings from file
 			config.read_file(config_file)
+			# overwrite settings from arguments
 			config.read_dict(arguments)
 			settings['owner_name'] = config.get('user', 'owner_name')
 			settings['bot_name'] = config.get('user', 'bot_name')
