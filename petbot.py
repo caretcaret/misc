@@ -34,6 +34,11 @@ class Petbot:
 				sys.exit()
 			self.modhash = data['json']['data']['modhash']
 			self.headers['Cookie'] = 'reddit_session=' + data['json']['data']['cookie']
+			self.last_api_call = datetime.datetime.utcnow()
+			self.verbose or print(datetime.datetime.utcnow(),
+				"Logged in as", self.bot_name,
+				"with cookie", self.headers['Cookie'],
+				"and modhash", self.modhash)
 		except requests.exceptions.RequestException as e:
 			print("Error logging into reddit:")
 			print(e)
@@ -90,6 +95,7 @@ if __name__ == '__main__':
 			settings['api_delay'] = option_to_timedelta('api_delay')
 			settings['comments_delay'] = option_to_timedelta('comments_delay')
 			settings['messages_delay'] = option_to_timedelta('messages_delay')
+			settings['verbose'] = config.getboolean('behavior', 'verbose')
 	except (IOError, configparser.Error) as e:
 		print("Missing or broken config file at", config_filename)
 		print(e)
