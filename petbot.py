@@ -3,7 +3,6 @@
 # original author: Jeffrey Zhang
 
 import queue
-import json
 import configparser
 import argparse
 import sys
@@ -13,10 +12,32 @@ import requests
 
 class Petbot:
 	def __init__(self, settings):
-		self.settings = settings
+		for k, v in settings.items():
+			setattr(self, k, v)
+		self.headers = {'User-Agent': "Petbot by /u/" + settings['owner_name']}
 
-	def start(self):
+	def run(self):
 		pass
+
+	def login(self):
+		try:
+			payload = {
+				'user': self.bot_name,
+				'passwd': self.bot_password,
+				'api_type': 'json',
+			}
+			r = requests.post('https://ssl.reddit.com/api/login', params=payload, headers=self.headers)
+			data = r.json()
+			if len(data['json']['errors']) != 0:
+				print("Error logging into reddit:")
+				print('\n'.join(data['json']['errors']))
+				sys.exit()
+			self.modhash = data['json']['data']['modhash']
+			self.headers['Cookie'] = 'reddit_session=' + data['json']['data']['cookie']
+		except requests.exceptions.RequestException as e:
+			print("Error logging into reddit:")
+			print(e)
+			sys.exit()
 
 
 if __name__ == '__main__':
@@ -76,4 +97,5 @@ if __name__ == '__main__':
 
 	# run!
 	petbot = Petbot(settings)
-	petbot.start()
+	petbot.login()
+	petbot.run()
