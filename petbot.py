@@ -6,7 +6,6 @@ import queue
 import json
 import configparser
 import argparse
-import sqlite3
 import sys
 import datetime
 import threading
@@ -34,7 +33,6 @@ if __name__ == '__main__':
 			'api_delay': '2000',
 			'comments_delay': '10000',
 			'messages_delay': '10000',
-			'db_filename': 'petbot.db',
 			'verbose': 'yes',
 		}
 	}
@@ -71,7 +69,6 @@ if __name__ == '__main__':
 			settings['api_delay'] = option_to_timedelta('api_delay')
 			settings['comments_delay'] = option_to_timedelta('comments_delay')
 			settings['messages_delay'] = option_to_timedelta('messages_delay')
-			settings['db_filename'] = config.get('behavior', 'db_filename')
 	except (IOError, configparser.Error) as e:
 		print("Missing or broken config file at", config_filename)
 		print(e)
