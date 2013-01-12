@@ -7,6 +7,7 @@ import configparser
 import argparse
 import sys
 import datetime
+import time
 import threading
 import requests
 
@@ -15,9 +16,9 @@ class Petbot:
 		for k, v in settings.items():
 			setattr(self, k, v)
 		self.headers = {'User-Agent': "Petbot by /u/" + settings['owner_name']}
-
-	def run(self):
-		pass
+		self.pq_action = queue.PriorityQueue()
+		self.pq_data = queue.PriorityQueue()
+		self.running = False
 
 	def login(self):
 		# check that credentials exist
@@ -50,6 +51,37 @@ class Petbot:
 			print("Error logging into reddit:")
 			print(e)
 			sys.exit()
+
+	def run(self):
+		# after credentials are acquired, spawn a thread
+		# that controls polling the api and its frequency.
+		api_thread = threading.Thread(target=self.api_thread)
+		api_thread.start()
+		self.running = True
+		try:
+			while self.running:
+				pass
+				# TODO: Main thread monitors incoming data
+				# TODO: Data is transformed into friendly format
+				# TODO: Data passes through plugin matching
+				# TODO: Best plugin is selected
+				# TODO: Action is submitted to api queue
+				pass
+		# User wants to stop the bot with ^C
+		except KeyboardInterrupt:
+			self.running = False
+			self.verbose or print(datetime.datetime.utcnow(), "Stopped running.")
+
+	def api_thread(self):
+		# TODO: Check which data sources are required
+		# TODO: Add first data checks to queue
+		self.verbose or print(datetime.datetime.utcnow(), "API thread started.")
+		while self.running:
+			pass
+			# TODO: Dequeue to get api action
+			# TODO: Determine api action and use appropriate source
+			# TODO: Enqueue received data if necessary
+		self.verbose or print(datetime.datetime.utcnow(), "API thread stopped.")
 
 
 if __name__ == '__main__':
