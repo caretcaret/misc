@@ -11,11 +11,32 @@ import time
 import threading
 import requests
 
+class Data:
+	def __init__(self, tags=[]):
+		self.tags = tags
+
+class Action:
+	def __init__(self, api_url, api_args={}, api_method='GET', tags=[]):
+		"""Represents an action to be done using the reddit api.
+		`api_url` specifies the url to send the request to.
+		`api_args` specifies the arguments in a POST/GET request
+		`api_method` specifies either `'GET'` or `'POST'`
+		`tags` specifies any information to be attached to the Data object,
+		which must be a list."""
+		self.api_url = api_url
+		self.api_args = api_args
+		self.api_method = api_method
+		self.tags = tags
+
+	def extract_data(self, json):
+		"""A function that receives a json dict and returns a `Data` object"""
+		return Data()
+
 class Petbot:
 	def __init__(self, settings):
 		for k, v in settings.items():
 			setattr(self, k, v)
-		self.headers = {'User-Agent': "Petbot by /u/" + settings['owner_name']}
+		self.headers = {'User-Agent': "Petbot by /u/" + self.owner_name }
 		self.pq_action = queue.PriorityQueue()
 		self.pq_data = queue.PriorityQueue()
 		self.running = False
