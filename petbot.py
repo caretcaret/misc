@@ -11,7 +11,6 @@ import time
 import threading
 import requests
 import importlib
-from plugins import BasePlugin
 
 class Data:
 	def __init__(self, tags=None):
@@ -35,9 +34,10 @@ class Action:
 		return Data()
 
 class Petbot:
-	def __init__(self, settings):
+	def __init__(self, settings, plugins):
 		for k, v in settings.items():
 			setattr(self, k, v)
+		self.plugins = plugins
 		self.headers = {'User-Agent': "Petbot by /u/" + self.owner_name }
 		self.pq_action = queue.PriorityQueue()
 		self.pq_data = queue.PriorityQueue()
@@ -155,7 +155,7 @@ if __name__ == '__main__':
 			settings['bot_name'] = config.get('user', 'bot_name')
 			settings['bot_password'] = config.get('user', 'bot_password')
 			settings['subreddits'] = [x.strip() for x in config.get('behavior', 'subreddits').split(',') if x.strip() != '']
-			settings['plugins'] = [x.strip() for x in config.get('behavior', 'plugins').split(',') if x.strip() != '']
+			settings['plugins_str'] = [x.strip() for x in config.get('behavior', 'plugins').split(',') if x.strip() != '']
 			settings['restrict_owner'] = config.getboolean('behavior', 'restrict_owner')
 			option_to_timedelta = lambda option: datetime.timedelta(milliseconds=int(config.get('behavior', option)))
 			settings['api_delay'] = option_to_timedelta('api_delay')
@@ -170,22 +170,22 @@ if __name__ == '__main__':
 	# Import plugins specified by the settings
 	plugins = []
 	try:
-		for plugin in settings['plugins']:
+		for plugin in settings['plugins_str']:
 			module = importlib.import_module('plugins.' + plugin)
 			# Get the plugin classes from the module
 			for name in dir(module):
 				obj = getattr(module, name)
-				try:
-					if issubclass(obj, BasePlugin):
-						plugins.append(obj)
-				except TypeError as e:
-					pass
+				# check if obj is a class and if it is in the plugin list
+				if isinstance(obj, type) and name in settings['plugins_str']:
+					# add an instance of the class so we can get its attributes
+					plugins.append(obj())
+					settings['verbose'] or print(datetime.datetime.utcnow(), "Loading plugin", name)
 	except ImportError as e:
 		print("Missing or broken plugin")
 		print(e)
 		sys.exit()
 
 	# run!
-	petbot = Petbot(settings)
+	petbot = Petbot(settings, plugins)
 	petbot.login()
 	petbot.run()
