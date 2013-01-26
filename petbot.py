@@ -11,6 +11,7 @@ import time
 import threading
 import requests
 import importlib
+import random
 
 class Data:
 	def __init__(self, tags=None):
@@ -38,6 +39,8 @@ class Petbot:
 		for k, v in settings.items():
 			setattr(self, k, v)
 		self.plugins = plugins
+		self.require_comments = any([plugin.require_comments for plugin in plugins])
+		self.require_messages = any([plugin.require_messages for plugin in plugins])
 		self.headers = {'User-Agent': "Petbot by /u/" + self.owner_name }
 		self.pq_action = queue.PriorityQueue()
 		self.pq_data = queue.PriorityQueue()
@@ -66,7 +69,7 @@ class Petbot:
 			self.modhash = data['json']['data']['modhash']
 			self.headers['Cookie'] = 'reddit_session=' + data['json']['data']['cookie']
 			self.last_api_call = datetime.datetime.utcnow()
-			self.verbose or print(datetime.datetime.utcnow(),
+			self.verbose and print(datetime.datetime.utcnow(),
 				"Logged in as", self.bot_name,
 				"with cookie", self.headers['Cookie'],
 				"and modhash", self.modhash)
@@ -83,29 +86,49 @@ class Petbot:
 		self.running = True
 		try:
 			while self.running:
-				pass
-				# TODO: Main thread monitors incoming data
-				# TODO: Data is transformed into friendly format
-				# TODO: Data passes through plugin matching
-				# TODO: Best plugin is selected
-				# TODO: Action is submitted to api queue
-				pass
+				# Wait until incoming data is received
+				data = self.pq_data.get()
+				# Data passes through plugin matching
+				best = []
+				best_score = 0
+				actions = []
+				for plugin in self.plugins:
+					bid = plugin.expose(self, data)
+					# if bid is negative, discard plugin for this data
+					if bid < 0:
+						continue
+					# if bid is 0, add to the list of plugins to generate action
+					elif bid == 0:
+						actions.append(plugin)
+					# if bid is positive, compare with other bids
+					else:
+						if bid > best_score:
+							best = [plugin]
+							best_score = bid
+						elif bid == best_score:
+							best.append(plugin)
+				# Select the best plugin
+				if len(best) > 0:
+					actions.append(random.choice(best))
+				# Generate actions and submit to api queue
+				for plugin in actions:
+					action = plugin.invoke(self, data)
+					self.pq_action.put(action)
 		# User wants to stop the bot with ^C
 		except KeyboardInterrupt:
 			self.running = False
-			self.verbose or print(datetime.datetime.utcnow(), "Stopped running.")
+			self.verbose and print(datetime.datetime.utcnow(), "Stopped running.")
 
 	def api_thread(self):
-		# TODO: Check which data sources are required
 		# TODO: Add first data checks to queue
-		self.verbose or print(datetime.datetime.utcnow(), "API thread started.")
+		self.verbose and print(datetime.datetime.utcnow(), "API thread started.")
 		while self.running:
 			pass
 			# TODO: Dequeue to get api action
 			# TODO: Determine api action and use appropriate source
-			# TODO: Enqueue received data if necessary
+			# TODO: Enqueue received data if necessary and convert to Data object
 			# TODO: Add api actions by delay
-		self.verbose or print(datetime.datetime.utcnow(), "API thread stopped.")
+		self.verbose and print(datetime.datetime.utcnow(), "API thread stopped.")
 
 
 if __name__ == '__main__':
@@ -179,10 +202,14 @@ if __name__ == '__main__':
 				if isinstance(obj, type) and name in settings['plugins_str']:
 					# add an instance of the class so we can get its attributes
 					plugins.append(obj())
-					settings['verbose'] or print(datetime.datetime.utcnow(), "Loading plugin", name)
+					settings['verbose'] and print(datetime.datetime.utcnow(), "Loading plugin", name)
 	except ImportError as e:
 		print("Missing or broken plugin")
 		print(e)
+		sys.exit()
+
+	if len(plugins) == 0:
+		print("No plugins! Quitting")
 		sys.exit()
 
 	# run!
