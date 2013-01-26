@@ -10,13 +10,15 @@ import datetime
 import time
 import threading
 import requests
+import importlib
+from plugins import BasePlugin
 
 class Data:
-	def __init__(self, tags=[]):
-		self.tags = tags
+	def __init__(self, tags=None):
+		self.tags = tags or []
 
 class Action:
-	def __init__(self, api_url, api_args={}, api_method='GET', tags=[]):
+	def __init__(self, api_url, api_args=None, api_method='GET', tags=None):
 		"""Represents an action to be done using the reddit api.
 		`api_url` specifies the url to send the request to.
 		`api_args` specifies the arguments in a POST/GET request
@@ -24,12 +26,12 @@ class Action:
 		`tags` specifies any information to be attached to the Data object,
 		which must be a list."""
 		self.api_url = api_url
-		self.api_args = api_args
+		self.api_args = api_args or {}
 		self.api_method = api_method
-		self.tags = tags
+		self.tags = tags or []
 
 	def extract_data(self, json):
-		"""A function that receives a json dict and returns a `Data` object"""
+		"""Receives a json dict and returns a `Data` object"""
 		return Data()
 
 class Petbot:
@@ -74,7 +76,7 @@ class Petbot:
 			sys.exit()
 
 	def run(self):
-		# after credentials are acquired, spawn a thread
+		# After credentials are acquired, spawn a thread
 		# that controls polling the api and its frequency.
 		api_thread = threading.Thread(target=self.api_thread)
 		api_thread.start()
@@ -102,6 +104,7 @@ class Petbot:
 			# TODO: Dequeue to get api action
 			# TODO: Determine api action and use appropriate source
 			# TODO: Enqueue received data if necessary
+			# TODO: Add api actions by delay
 		self.verbose or print(datetime.datetime.utcnow(), "API thread stopped.")
 
 
@@ -151,8 +154,8 @@ if __name__ == '__main__':
 			settings['owner_name'] = config.get('user', 'owner_name')
 			settings['bot_name'] = config.get('user', 'bot_name')
 			settings['bot_password'] = config.get('user', 'bot_password')
-			settings['subreddits'] = [x.strip() for x in config.get('behavior', 'subreddits').split(',')]
-			settings['plugins'] = [x.strip() for x in config.get('behavior', 'plugins').split(',')]
+			settings['subreddits'] = [x.strip() for x in config.get('behavior', 'subreddits').split(',') if x.strip() != '']
+			settings['plugins'] = [x.strip() for x in config.get('behavior', 'plugins').split(',') if x.strip() != '']
 			settings['restrict_owner'] = config.getboolean('behavior', 'restrict_owner')
 			option_to_timedelta = lambda option: datetime.timedelta(milliseconds=int(config.get('behavior', option)))
 			settings['api_delay'] = option_to_timedelta('api_delay')
@@ -161,6 +164,24 @@ if __name__ == '__main__':
 			settings['verbose'] = config.getboolean('behavior', 'verbose')
 	except (IOError, configparser.Error) as e:
 		print("Missing or broken config file at", config_filename)
+		print(e)
+		sys.exit()
+
+	# Import plugins specified by the settings
+	plugins = []
+	try:
+		for plugin in settings['plugins']:
+			module = importlib.import_module('plugins.' + plugin)
+			# Get the plugin classes from the module
+			for name in dir(module):
+				obj = getattr(module, name)
+				try:
+					if issubclass(obj, BasePlugin):
+						plugins.append(obj)
+				except TypeError as e:
+					pass
+	except ImportError as e:
+		print("Missing or broken plugin")
 		print(e)
 		sys.exit()
 
