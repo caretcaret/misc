@@ -186,7 +186,6 @@ if __name__ == '__main__':
 		'behavior': {
 			'subreddits': '',
 			'plugins': '',
-			'restrict_owner': 'yes',
 			'api_delay': '2000',
 			'comments_delay': '10000',
 			'messages_delay': '10000',
@@ -224,7 +223,6 @@ if __name__ == '__main__':
 			settings['bot_password'] = config.get('user', 'bot_password')
 			settings['subreddits'] = [x.strip() for x in config.get('behavior', 'subreddits').split(',') if x.strip() != '']
 			settings['plugins_str'] = [x.strip() for x in config.get('behavior', 'plugins').split(',') if x.strip() != '']
-			settings['restrict_owner'] = config.getboolean('behavior', 'restrict_owner')
 			option_to_timedelta = lambda option: datetime.timedelta(milliseconds=int(config.get('behavior', option)))
 			settings['api_delay'] = option_to_timedelta('api_delay')
 			settings['comments_delay'] = option_to_timedelta('comments_delay')
