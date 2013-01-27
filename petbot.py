@@ -34,6 +34,14 @@ class Action:
 		"""Receives a json dict and returns a `Data` object"""
 		return Data()
 
+class PollCommentsAction(Action):
+	def __init__(self, subreddits, tags=None):
+		super().__init__('https://reddit.com/r/' + '+'.join(subreddits) + '/comments/.json', tags=tags)
+
+class PollMessagesAction(Action):
+	def __init__(self, tags=None):
+		super().__init__('https://reddit.com/message/unread/.json', tags=tags)
+
 class Petbot:
 	def __init__(self, settings, plugins):
 		for k, v in settings.items():
@@ -78,6 +86,19 @@ class Petbot:
 			print(e)
 			sys.exit()
 
+	def submit(self, action):
+		"""Submits an Action object through json and returns the corresponding Data associated with it"""
+		method = action.api_method.upper()
+		if method == 'GET':
+			r = requests.get(action.api_url, params=action.api_args, headers=self.headers)
+			data = r.json()
+			return action.extract_data(data)
+		elif method == 'POST':
+			action.api_args['uh'] = self.modhash
+			r = requests.post(action.api_url, params=action.api_args, headers=self.headers)
+			data = r.json()
+			return action.extract_data(data)
+
 	def run(self):
 		# After credentials are acquired, spawn a thread
 		# that controls polling the api and its frequency.
@@ -113,21 +134,45 @@ class Petbot:
 				# Generate actions and submit to api queue
 				for plugin in actions:
 					action = plugin.invoke(self, data)
-					self.pq_action.put(action)
+					self.pq_action.put((1, action))
 		# User wants to stop the bot with ^C
 		except KeyboardInterrupt:
 			self.running = False
 			self.verbose and print(datetime.datetime.utcnow(), "Stopped running.")
 
 	def api_thread(self):
-		# TODO: Add first data checks to queue
 		self.verbose and print(datetime.datetime.utcnow(), "API thread started.")
+		last_comments_poll = datetime.datetime.utcnow() - self.comments_delay
+		last_messages_poll = datetime.datetime.utcnow() - self.messages_delay
+		last_api_call = datetime.datetime.utcnow()
 		while self.running:
-			pass
-			# TODO: Dequeue to get api action
-			# TODO: Determine api action and use appropriate source
-			# TODO: Enqueue received data if necessary and convert to Data object
-			# TODO: Add api actions by delay
+			# Uses a simple model of First In First Out for scheduling, except when
+			# checking for comments/messages, which is prioritized.
+			# TODO: priority of polling should be a function of how much
+			# new information is acquired.
+			# Add a request for polling comments if it has been comments_delay long since last poll
+			if self.require_comments:
+				if last_comments_poll + self.comments_delay < datetime.datetime.utcnow():
+					self.verbose and print(datetime.datetime.utcnow(), "Adding request to poll comments")
+					self.pq_action.put((0, PollCommentsAction(self.subreddits)))
+					last_comments_poll = datetime.datetime.utcnow()
+					last_api_call = datetime.datetime.utcnow()
+			# Same for polling private messages
+			if self.require_messages:
+				if last_messages_poll + self.messages_delay < datetime.datetime.utcnow():
+					self.pq_action.put((0, PollMessagesAction()))
+					last_messages_poll = datetime.datetime.utcnow()
+					last_api_call = datetime.datetime.utcnow()
+			# There are api actions waiting to be done
+			if not self.pq_action.empty():
+				if last_api_call + self.api_delay < datetime.datetime.utcnow():
+					# Dequeue to get api action
+					action = self.pq_action.get()
+					# Submit action and get data from it
+					data = self.submit(action)
+					# Enqueue action
+					# TODO: detect if there is any meaningful data
+					self.pq_data.put(data)
 		self.verbose and print(datetime.datetime.utcnow(), "API thread stopped.")
 
 
