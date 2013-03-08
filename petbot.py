@@ -14,8 +14,16 @@ import importlib
 import random
 
 class Data:
-	def __init__(self, tags=None):
+	def __init__(self, json, tags=None):
+		for item in json:
+			setattr(self, k, v)
 		self.tags = tags or []
+
+class MessageData(Data):
+	def __init__(self, json, tags=None):
+		super().__init__(self, json, tags)
+		self.tags.append('message')
+
 
 class Action:
 	def __init__(self, api_url, api_args=None, api_method='GET', tags=None):
@@ -41,6 +49,16 @@ class PollCommentsAction(Action):
 class PollMessagesAction(Action):
 	def __init__(self, tags=None):
 		super().__init__('https://reddit.com/message/unread/.json', tags=tags)
+
+	def extract_data(self, json):
+		messages = json['data']['children']
+		if len(messages) == 0:
+			return None
+		datas = []
+		for thing in messages:
+			datas.append(thing['data'])
+		return datas
+
 
 class Petbot:
 	def __init__(self, settings, plugins):
