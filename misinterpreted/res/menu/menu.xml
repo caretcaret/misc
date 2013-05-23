@@ -1,0 +1,12 @@
+
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:id="@+id/itemSlideNum"></item><group android:id="@+id/groupText">
+            <item android:id="@+id/itemPrevImage" android:title="Previous Image"></item>
+        </group>
+        <group android:id="@+id/groupDraw">
+            <item android:id="@+id/itemClear" android:title="Clear"></item><item android:id="@+id/itemPrevText" android:title="Previous Description"></item>
+            <item android:id="@+id/itemColorPicker" android:title="Color/Erase"></item>
+            <item android:id="@+id/itemSizePicker" android:title="Size"></item>
+        </group>
+        <group android:id="@+id/groupDone"><item android:id="@+id/itemFinished" android:title="Finished"></item></group>
+    </menu>

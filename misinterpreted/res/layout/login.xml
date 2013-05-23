@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="@drawable/wood_repeat">
+    <TextView android:text="Login or register for online play" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textLogin" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+    <EditText android:id="@+id/editTextEmail" android:layout_height="wrap_content" android:layout_width="fill_parent" android:inputType="textEmailAddress" android:hint="E-mail address">
+        <requestFocus></requestFocus>
+    </EditText>
+    <EditText android:id="@+id/editTextPassword" android:layout_height="wrap_content" android:layout_width="fill_parent" android:inputType="textPassword" android:hint="Password"></EditText>
+    <Button android:background="@drawable/custom_button" android:text="Submit" android:id="@+id/buttonSubmit" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    <TextView android:text="Note: this function does not work yet" android:id="@+id/textNotice" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+</LinearLayout>
