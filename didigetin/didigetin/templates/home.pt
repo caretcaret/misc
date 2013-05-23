@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Did I get in?</title>
+    <link rel="stylesheet" type="text/css" href="${request.route_url('css')}"/>
+  </head>
+  <body>
+    <h2>Did I get in?</h2>
+    <form id="form" name="form" method="post" action="${request.route_url('home')}">
+      <fieldset>
+        <div class="label">
+          <label for="user" class="required">Username</label>
+        </div>
+        <div class="input${' error' if error['user'] else ''}" title="alphanumeric, hyphens, underscores; automatic signup">
+          <input type="text" name="user" id="user" value="${input['user']}"/>
+        </div>
+        <br/>
+        <div class="label">
+          <label for="secret" class="required">Secret</label>
+        </div>
+        <div class="input${' error' if error['secret'] else ''}" title="used for editing; change secret at ${request.route_url('secret')}">
+          <input type="password" name="secret" id="secret"/>
+        </div>
+        <div class="label">
+          <label for="college" class="required">College/University</label>
+        </div>
+        <div class="input${' error' if error['college'] else ''}" title="urls will be automatically formatted; must have at least one alphanumeric character">
+          <input type="text" name="college" id="college" value="${input['college']}"/>
+        </div>
+        <br/>
+        <div class="label">
+          <label for="result">Result</label>
+        </div>
+        <div class="input" title="leave blank to delete">
+          <input type="text" name="result" id="result" value="${input['result']}"/>
+        </div>
+        <br/>
+        <div class="label">
+          <label for="info">Additional Information</label>
+        </div>
+        <div class="input" title="no formatting">
+          <textarea cols="34" rows="6" name="info" id="info">${input['info']}</textarea>
+        </div>
+        <br/>
+        <div class="input">
+          <input type="submit" name="submit"/>
+        </div>
+      </fieldset>
+    </form>
+  </body>
+</html>

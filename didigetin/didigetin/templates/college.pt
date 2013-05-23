@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Did I get in${'to ' + resultdata.name if resultdata.name else ''}?</title>
+    <link rel="stylesheet" type="text/css" href="${request.route_url('css')}"/>
+  </head>
+  <body>
+    <h1 tal:condition="resultdata.result">${resultdata.result}</h1>
+    <h2 tal:condition="not:resultdata.result">${'No data on ' + request.matchdict['user'] + ' for ' + request.matchdict['college']}</h2>
+    <p tal:condition="resultdata.info">${resultdata.info}</p>
+  </body>
+</html>

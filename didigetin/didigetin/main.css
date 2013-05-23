@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+}
+h1 {
+  text-align: center;
+  margin-top: 100px;
+  font-size: 144px;
+  font-weight: normal;
+}
+h2 {
+  text-align: center;
+  margin-top: 75px;
+ font-size: 48px;
+}
+#form {
+  margin: auto;
+  width: 550px;
+}
+fieldset {
+  padding: 25px;
+  border: 1px solid #a0a0a0;
+}
+.label {
+  width: 175px;
+  height: 31px;
+  display: inline;
+  float: left;
+  padding: 0;
+  text-align: right;
+}
+label.required:after {
+  content: "*";
+}
+.input {
+  width: 300px;
+  display: inline;
+  float: right;
+  padding: 0;
+}
+input[type=text], input[type=password] {
+  width: 293px;
+  height: 25px;
+  font-size: 20px;
+}
+textarea {
+  width: 291px;
+  font-size: 20px;
+}
+p {
+  text-align: center;
+  color: #808080;
+  font-style: italic;
+}
+.error input {
+  background-color: #ffeeee;
+}
+table {
+  margin: auto;
+  width: 700px;
+  padding: 25px;
+  border: 1px solid #a0a0a0;
+  font-size: 20px;
+}
+td.college {
+  width: auto;
+  text-align: right;
+  padding-right: 10px;
+}
+td.result {
+  width: auto;
+  text-align: left;
+  padding-left: 10px;
+}
+a, a:link, a:visited, a:active {
+  color: #4040ff;
+  text-decoration: none;
+}
+a:hover {
+  color: #8080ff;
+  text-decoration: underline;
+}
