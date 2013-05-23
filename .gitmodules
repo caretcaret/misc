@@ -1,3 +1,6 @@
 [submodule "dropblox"]
 	path = dropblox
 	url = https://github.com/cyang1/dropblox.git
+[submodule "MiM"]
+	path = MiM
+	url = https://github.com/iambald/MiM.git
