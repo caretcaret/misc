@@ -1,0 +1,11 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+
+<h1>Discussion</h1>
+<p>Discuss topics, math-related or not, with Leland Math Club members.
+</p>
+
+<div class="distinguished">
+The discussion feature is not available at this time.
+</div>
+</tal:block></html>

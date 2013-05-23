@@ -1,0 +1,15 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+<p class="important" tal:condition="message">${message}</p>
+
+<form id="login" name="login" method="post" action="${request.route_url('login')}">
+	<fieldset>
+	<legend>Login</legend>
+	<input type="hidden" name="_csrf" id="_csrf" value="${request.session.get_csrf_token()}"/>
+	<input type="hidden" id="referrer" name="referrer" value="${referrer}"/>
+	<label for="email">email address</label><br/><input type="email" id="email" name="email" value="${email}"/><br/>
+	<label for="password">password</label><br/><input type="password" id="password" name="password"/><br/>
+	<input type="submit" value="login" name="submit" id="submit"/>
+	</fieldset>
+</form>
+</tal:block></html>

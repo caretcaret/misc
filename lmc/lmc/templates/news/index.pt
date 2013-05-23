@@ -1,0 +1,25 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+
+<h1>News Updates</h1>
+<p>Keep up-to-date with club activities.</p>
+
+<h3 tal:condition="Permission.NEWS & user.permissions == Permission.NEWS"><a href="${request.route_url('news_create')}">Create News Post</a></h3>
+
+<tal:block tal:condition="articleList">
+<h2>${articleList[0].title}</h2>
+<cite>published ${articleList[0].submitTime.strftime('%A, %B %d, %Y at %H:%M:%S UTC')} by ${articleList[0].owner.nickname or articleList[0].owner.name}; last modified ${articleList[0].lastModified.strftime('%A, %B %d, %Y at %H:%M:%S UTC')}</cite>
+<div class="distinguished" tal:content="structure articleHTML"></div>
+<br/>
+<h2>All News Posts</h2>
+<table class="distinguished">
+	<thead><tr><th>Title</th><th>Date/Time</th></tr></thead>
+	<tbody><tal:block tal:repeat="article articleList"><tr tal:condition="not:article.isDeleted"><td><a href="${request.route_url('news_article', articleid=article.id)}">${article.title}</a></td><td>${article.submitTime.strftime('%A, %B %d, %Y at %H:%M:%S UTC')}</td></tr></tal:block>
+	</tbody>
+</table>
+</tal:block>
+
+<div class="distinguished" tal:condition="not:articleList">
+There appears to be no news posts here!
+</div>
+</tal:block></html>

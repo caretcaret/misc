@@ -1,0 +1,49 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+<p class="important" tal:condition="messages">
+${'The following errors were' if len(messages) &gt; 2 else 'An error was'} encountered:
+<tal:block tal:repeat="message messages"><br/>${message}</tal:block>
+</p>
+
+<form id="registerform" name="registerform" method="post" action="${request.route_url('register')}" tal:condition="not userdata['name']">
+	<fieldset>
+	<legend>Student Registration</legend>
+	<label for="name" class="required">full name</label><br/><input type="text" name="name" id="name" value="${name}"/><br/>
+	<label for="nickname">nickname</label>
+		<small>If you provide a nickname, your full name will only be shown to registered members and will not be public.</small><br/>
+		<input type="text" name="nickname" id="nickname" value="${nickname}"/><br/>
+	<strong class="required">gender</strong><br/>
+	<input type="radio" name="gender" value="1" id="gender_male" checked="checked" tal:condition="gender == 1"/>
+	<input type="radio" name="gender" value="1" id="gender_male" tal:condition="gender != 1"/>
+	<label for="gender_male" class="radio">male</label><br/>
+	<input type="radio" name="gender" value="2" id="gender_female" checked="checked" tal:condition="gender == 2"/>
+	<input type="radio" name="gender" value="2" id="gender_female" tal:condition="gender != 2"/>
+	<label for="gender_female" class="radio">female</label><br/>
+	<label for="email" class="required">email address</label><br/><input type="email" name="email" id="email" value="${email}"/><br/>
+	<label for="password" class="required">password</label><br/><input type="password" name="password" id="password"/><br/>
+	<label for="cellphone" class="required">cell phone number</label>
+		<small>A cell phone is very useful in case someone needs to contact you. Cell phone numbers will only be revealed to the officers and the advisor. Calls will be made exclusively regarding Math Club events. If you do not have a cell phone, please borrow one for use during events or notify an officer.</small>
+		<br/><input type="text" name="cellphone" id="cellphone" value="${cellphone}"/><br/>
+	<label for="gradyear" class="required">graduation year</label><br/><input type="text" name="gradyear" id="gradyear" value="${gradyear}"/><br/>
+	<strong class="required">current math class</strong><br/>
+	<tal:block tal:repeat="row mathclasses">
+		<input type="radio" name="mathclass" value="${row.id}" id="mathclass_${row.id}" checked="checked" tal:condition="mathclass is row.id"/>
+		<input type="radio" name="mathclass" value="${row.id}" id="mathclass_${row.id}" tal:condition="mathclass is not row.id"/>
+		<label for="mathclass_${row.id}" class="radio">${row.name}</label><br/>
+	</tal:block>
+	<label for="emailprefs">email notifications</label>
+		<small>Check this box if you currently participate in Leland Math Club. You will receive email notifications about club activities.</small>
+		<br/>
+		<input type="checkbox" name="emailprefs" id="emailprefs" checked="checked" tal:condition="emailprefs"/>
+		<input type="checkbox" name="emailprefs" id="emailprefs" tal:condition="not emailprefs"/>
+		<br/>
+	<label for="info">about yourself</label>
+		<small>If you desire, provide any information about yourself.</small>
+		<br/><textarea name="info" cols="32" rows="3" id="info">${info}</textarea><br/>
+	<input type="submit" value="register" name="register" id="register"/>
+	</fieldset>
+</form>
+
+</div></html>

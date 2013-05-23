@@ -1,0 +1,12 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+<h2>${title}</h2>
+<h4>published ${submit_time} UTC<!-- by ${ownerid}-->; last modified ${lastmodified} UTC</h4>
+<h3 tal:condition="Permissions.EDIT_NEWS in userdata['permissions']"><a href="${request.route_url('news_edit', newsid=newsid)}">Edit</a></h3>
+<div class="distinguished">
+${contenthtml}
+</div>
+
+</div></html>

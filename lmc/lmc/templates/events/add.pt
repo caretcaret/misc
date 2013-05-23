@@ -1,0 +1,20 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+<form id="addevent" name="addevent" method="post" action="${request.route_url('events_add')}">
+	<fieldset>
+	<input type="hidden" name="_csrf" id="_csrf" value="${request.session.get_csrf_token()}"/>
+	<legend>Add Event</legend>
+	<label for="name" class="required">name</label><br/><input type="text" name="name" id="name" value=""/><br/>
+	<label for="beginTime" class="required">begin time</label> <small>in some format in UTC</small><br/><input type="datetime" name="beginTime" id="beginTime" value=""/><br/>
+	<label for="endTime">end time</label> <small>in some format in UTC</small><br/><input type="datetime" name="endTime" id="endTime" value=""/><br/>
+	<label for="description">description</label><br/><textarea cols="32" rows="3" name="description" id="description"></textarea><br/>
+	<label for="location">location</label><br/><textarea cols="32" rows="3" name="location" id="location"></textarea><br/>
+	<!--! for contest events / picnic -->
+	<label for="isContest">is this a contest?</label><br/><input type="checkbox" id="isContest" name="isContest"/><br/>
+	<label for="deadline">registration deadline</label><br/><input type="datetime" id="deadline" name="deadline" value=""/><br/>
+	<label for="divisions">divisions</label> <small>For contests with multiple subevents. One on each line.</small><br/><textarea cols="32" rows="3" name="divisions" id="divisions"></textarea><br/>
+	<label for="materials">materials to bring</label> <small>For example, pencils, calculator, money. One on each line.</small><br/><textarea cols="32" rows="3" name="materials" id="materials"></textarea><br/>
+	<input type="submit" name="submit" id="submit" value="add"/>
+	</fieldset>
+</form>
+</tal:block></html>

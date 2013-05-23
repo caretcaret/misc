@@ -1,0 +1,11 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+
+<h2>${file.name}</h2>
+<cite>for ${file.fileDate.strftime('%A, %B %d, %Y')}; uploaded ${file.submitTime.strftime('%A, %B %d, %Y at %H:%M:%S UTC')} by ${file.owner.nickname or file.owner.name}</cite>
+<h3 tal:condition="Permission.FILE & user.permissions == Permission.FILE"><a href="${request.route_url('archives_edit', fileid=file.id)}">Edit file</a></h3>
+<div class="distinguished"><h3>${file.filename}</h3>
+<tal:block tal:content="structure descriptionHTML"></tal:block><hr/><h3><a href="${request.route_url('archives_download', fileid=file.id)}">
+Download</a></h3></div>
+
+</tal:block></html>

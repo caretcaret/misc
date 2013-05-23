@@ -1,0 +1,17 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+<table class="distinguished">
+	<thead><tr><th>Member Name</th><th>Gender</th><th>Graduation Year</th></tr></thead>
+	<tbody>
+	<tr tal:repeat="user memberlist">
+		<td><a href="${request.route_url('members_member', memberid=user.id)}"><em tal:omit-tag="not:user.nickname">${user.nickname or user.name}</em></a></td>
+		<td>${'Male' if user.gender == 1 else 'Female'}</td>
+		<td>${user.gradyear} <small tal:condition="user.gradyear &lt; currentgradyear and user.gender == 1">alumnus</small><small tal:condition="user.gradyear &lt; currentgradyear and user.gender == 2">alumna</small></td>
+	</tr>
+	</tbody>
+</table>
+
+</div>
+</html>

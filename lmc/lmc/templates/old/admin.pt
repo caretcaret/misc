@@ -1,0 +1,53 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+<form tal:condition="Permissions.GOVERN in userdata['permissions']" action="${request.route_url('admin')}" method="post" id="adminform" name="adminform">
+<fieldset>
+<h2>Edit Homepage HTML</h2>
+<textarea name="homepage" cols="32" rows="10" id="homepage">${homepage}</textarea>
+<h2>Edit Current Graduation Year</h2>
+<input type="text" name="gradyear" id="gradyear" value="${currentgradyear}"/>
+<h2>Edit Member Permissions</h2>
+
+<table>
+	<thead><tr><th>ID</th><th>Member Name</th><th>Member Email</th>
+	<th><abbr title="write [a]rticles">A</abbr></th>
+	<th><abbr title="[c]haperone">C</abbr></th>
+	<th><abbr title="participate in [d]iscussions">D</abbr></th>
+	<th><abbr title="add [e]vents">E</abbr></th>
+	<th><abbr title="upload [f]iles">F</abbr></th>
+	<th><abbr title="[g]overn (be an admin)">G</abbr></th>
+	<th><abbr title="send [m]essages">M</abbr></th>
+	<th><abbr title="write [n]ews">N</abbr></th>
+	<th><abbr title="upload [p]hotos">P</abbr></th>
+	<th><abbr title="[r]egister in events">R</abbr></th>
+	<th><abbr title="[v]iew member-only data">V</abbr></th>
+	</tr></thead>
+	<tbody>
+	<tr tal:repeat="user memberlist">
+		<td>${user.id}</td><td><a href="${request.route_url('members_member', memberid=user.id)}">${user.name}</a></td><td>${user.email}</td>
+		<td><input type="checkbox" name="A_${user.id}" id="A_${user.id}" checked="checked" tal:condition="Permissions.EDIT_ARTICLE in userdata['permissions']"/><input type="checkbox" name="A_${user.id}" id="A_${user.id}" tal:condition="Permissions.EDIT_ARTICLE not in userdata['permissions']"/></td>
+		<td><input type="checkbox" name="C_${user.id}" id="C_${user.id}" checked="checked" tal:condition="Permissions.CHAPERONE in userdata['permissions']"/><input type="checkbox" name="C_${user.id}" id="C_${user.id}" tal:condition="Permissions.CHAPERONE not in userdata['permissions']"/></td>
+		<td><input type="checkbox" name="D_${user.id}" id="D_${user.id}" checked="checked" tal:condition="Permissions.EDIT_ARTICLE in userdata['permissions']"/><input type="checkbox" name="D_${user.id}" id="D_${user.id}" tal:condition="Permissions.EDIT_ARTICLE not in userdata['permissions']"/></td>
+		<td><input type="checkbox" name="E_${user.id}" id="E_${user.id}" checked="checked" tal:condition="Permissions.EDIT_ARTICLE in userdata['permissions']"/><input type="checkbox" name="E_${user.id}" id="E_${user.id}" tal:condition="Permissions.EDIT_ARTICLE not in userdata['permissions']"/></td>
+		<td><input type="checkbox" name="F_${user.id}" id="F_${user.id}" checked="checked" tal:condition="Permissions.EDIT_ARTICLE in userdata['permissions']"/><input type="checkbox" name="F_${user.id}" id="F_${user.id}" tal:condition="Permissions.EDIT_ARTICLE not in userdata['permissions']"/></td>
+		<td><input type="checkbox" name="G_${user.id}" id="G_${user.id}" checked="checked" tal:condition="Permissions.EDIT_ARTICLE in userdata['permissions']"/><input type="checkbox" name="G_${user.id}" id="G_${user.id}" tal:condition="Permissions.EDIT_ARTICLE not in userdata['permissions']"/></td>
+		<td><input type="checkbox" name="M_${user.id}" id="M_${user.id}" checked="checked" tal:condition="Permissions.EDIT_ARTICLE in userdata['permissions']"/><input type="checkbox" name="M_${user.id}" id="M_${user.id}" tal:condition="Permissions.EDIT_ARTICLE not in userdata['permissions']"/></td>
+		<td><input type="checkbox" name="N_${user.id}" id="N_${user.id}" checked="checked" tal:condition="Permissions.EDIT_ARTICLE in userdata['permissions']"/><input type="checkbox" name="N_${user.id}" id="N_${user.id}" tal:condition="Permissions.EDIT_ARTICLE not in userdata['permissions']"/></td>
+		<td><input type="checkbox" name="P_${user.id}" id="P_${user.id}" checked="checked" tal:condition="Permissions.EDIT_ARTICLE in userdata['permissions']"/><input type="checkbox" name="P_${user.id}" id="P_${user.id}" tal:condition="Permissions.EDIT_ARTICLE not in userdata['permissions']"/></td>
+		<td><input type="checkbox" name="R_${user.id}" id="R_${user.id}" checked="checked" tal:condition="Permissions.EDIT_ARTICLE in userdata['permissions']"/><input type="checkbox" name="R_${user.id}" id="R_${user.id}" tal:condition="Permissions.EDIT_ARTICLE not in userdata['permissions']"/></td>
+		<td><input type="checkbox" name="V_${user.id}" id="V_${user.id}" checked="checked" tal:condition="Permissions.EDIT_ARTICLE in userdata['permissions']"/><input type="checkbox" name="V_${user.id}" id="V_${user.id}" tal:condition="Permissions.EDIT_ARTICLE not in userdata['permissions']"/></td>
+	</tr>
+	</tbody>
+</table>
+
+<input type="submit" value="submit" name="adminsubmit" id="adminsubmit"/>
+
+</fieldset>
+</form>
+
+<p class="important" tal:condition="Permissions.GOVERN not in userdata['permissions']">You are not authorized as an administrator!</p>
+
+</div>
+</html>

@@ -1,0 +1,9 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+
+<h1>Events Organizer &amp; Calendar</h1>
+<p>View information about previous and upcoming meetings and events.</p>
+
+<h3 tal:condition="Permission.EVENT & user.permissions == Permission.EVENT"><a href="${request.route_url('events_add')}">Add New Event</a></h3>
+
+</tal:block></html>

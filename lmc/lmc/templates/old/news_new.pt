@@ -1,0 +1,21 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+<div class="important" tal:condition="Permissions.EDIT_NEWS not in userdata['permissions']">You are not authorized to post news.</div>
+
+<div class="important" tal:condition="messages">
+${'The following errors were' if len(messages) &gt; 1 else 'An error was'} encountered:
+<tal:block tal:repeat="message messages"><br/>${message}</tal:block>
+</div>
+
+<form id="newsform" name="newsform" method="post" action="${request.route_url('news_new')}" tal:condition="Permissions.EDIT_NEWS in userdata['permissions']">
+	<fieldset>
+		<legend>Create News Post</legend>
+		<label for="title" class="required">title</label><br/><input type="text" name="title" id="title" value="${title}"/><br/>
+		<label for="content" class="required">content</label> <small>Use <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>. Remember to put a blank line between paragraphs. Use $[ and ]$ for LaTeX math mode.</small><br/><textarea class="required" cols="32" rows="10" id="content" name="content">${content}</textarea><br/>
+		<input type="submit" id="publish" name="publish" value="publish"/>
+	</fieldset>
+</form>
+
+</div></html>

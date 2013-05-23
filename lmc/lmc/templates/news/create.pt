@@ -1,0 +1,14 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+<form id="createnews" name="createnews" method="post" action="${request.route_url('news_create')}" tal:condition="Permission.NEWS & user.permissions == Permission.NEWS">
+	<fieldset>
+	<input type="hidden" name="_csrf" id="_csrf" value="${request.session.get_csrf_token()}"/>
+	<legend>Create News Post</legend>
+	<label for="title" class="required">title</label><br/><input type="text" name="title" id="title" value="${form.data['title']}"/><br/>
+	<tal:block tal:condition="form.is_error('title')"><div class="error"><tal:block tal:repeat="message form.errors_for('title')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="content" class="required">content</label><br/><small>Use <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>. Remember to put a blank line between paragraphs. Use <code>\\( \dfrac{\pi^2}{6} \\)</code> for inline LaTeX math, and <code>$$ \sin^2 \theta + \cos^2 \theta = 1$$</code> or <code>\\[ \ln (-1) = i\pi \\]</code> for display LaTeX math.</small><br/><textarea class="required" cols="32" rows="10" id="content" name="content">${form.data['content']}</textarea><br/>
+	<tal:block tal:condition="form.is_error('content')"><div class="error"><tal:block tal:repeat="message form.errors_for('content')">${message + '. '}</tal:block></div><br/></tal:block>
+	<input type="submit" id="submit" name="submit" value="publish"/>
+	</fieldset>
+</form>
+</tal:block></html>

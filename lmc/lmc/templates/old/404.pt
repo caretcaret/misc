@@ -1,0 +1,7 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+<h1>404 Page Not Found</h1>
+<p>Sorry, the page you requested (<a href="${request.url}">${request.url}</a>) does not exist. If you encountered this error through a link on the website, please contact the administrator.</p>
+
+</div></html>

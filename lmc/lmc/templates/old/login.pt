@@ -1,0 +1,16 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+<p class="important" tal:condition="message">An error was encountered:<br/>${message}</p>
+
+<form id="loginform" name="loginform" method="post" action="${request.route_url('login')}" tal:condition="not userdata['name']">
+	<fieldset>
+	<legend>Login</legend>
+	<input type="hidden" id="origin" name="origin" value="${origin}"/>
+	<label for="email">email address</label><br/><input type="email" id="email" name="email" value="${email}"/><br/>
+	<label for="password">password</label><br/><input type="password" id="password" name="password"/><br/>
+	<input type="submit" value="login" name="login" id="login"/>
+	</fieldset>
+</form>
+
+</div></html>

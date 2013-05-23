@@ -1,0 +1,9 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+
+<h2>${article.title}</h2>
+<cite>published ${article.submitTime.strftime('%A, %B %d, %Y at %H:%M:%S UTC')} by ${article.owner.nickname or article.owner.name}; last modified ${article.lastModified.strftime('%A, %B %d, %Y at %H:%M:%S UTC')}</cite>
+<h3 tal:condition="Permission.NEWS & user.permissions == Permission.NEWS"><a href="${request.route_url('news_edit', articleid=article.id)}">Edit</a></h3>
+<div class="distinguished" tal:content="structure articleHTML"></div>
+
+</tal:block></html>

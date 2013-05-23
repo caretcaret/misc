@@ -1,0 +1,17 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+<h1>Presentation &amp; Contests Archives</h1>
+<p>Here, you will find previous math competitions, presentations, and other files that we use at math club.
+</p>
+
+<h3 tal:condition="Permissions.UPLOAD_FILE in userdata['permissions']"><a href="${request.route_url('archives_new')}">Upload a File</a></h3>
+
+<table class="distinguished">
+	<thead><tr><th>Date</th><th>File</th><th>Filename</th></tr></thead>
+	<tbody><tal:block tal:repeat="file filelist"><tr tal:condition="not:file.is_deleted"><td>${file.filedate.strftime('%A, %B %d, %Y')}</td><td><a href="${request.route_url('archives_file', fileid=file.id)}">${file.name}</a></td><td><a href="${request.route_url('archives_download', fileid=file.id)}">${file.filename}</a></td></tr></tal:block>
+	</tbody>
+</table>
+
+</div></html>

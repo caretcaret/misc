@@ -1,0 +1,17 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+<h1>News Updates</h1>
+<p>Keep up-to-date with club activities.
+</p>
+
+<h3 tal:condition="Permissions.EDIT_NEWS in userdata['permissions']"><a href="${request.route_url('news_new')}">Create News Article</a></h3>
+
+<table class="distinguished">
+	<thead><tr><th>Date</th><th>Title</th></tr></thead>
+	<tbody><tal:block tal:repeat="article articlelist"><tr tal:condition="not:article.is_deleted"><td>${article.submit_time.strftime('%A, %B %d, %Y')}</td><td><a href="${request.route_url('news_article', newsid=article.id)}">${article.title}</a></td></tr></tal:block>
+	</tbody>
+</table>
+
+</div></html>

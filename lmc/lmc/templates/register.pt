@@ -1,0 +1,52 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+<form id="register" name="register" method="post" action="${request.route_url('register')}">
+	<fieldset>
+	<input type="hidden" name="_csrf" id="_csrf" value="${request.session.get_csrf_token()}"/>
+	<legend>Student Registration</legend>
+	<label for="name" class="required">full name</label><br/>
+	<input type="text" name="name" id="name" value="${form.data['name']}"/><br/>
+	<tal:block tal:condition="form.is_error('name')"><div class="error"><tal:block tal:repeat="message form.errors_for('name')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="email" class="required">email address</label><br/>
+	<input type="email" name="email" id="email" value="${form.data['email']}"/><br/>
+	<tal:block tal:condition="form.is_error('email')"><div class="error"><tal:block tal:repeat="message form.errors_for('email')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="password" class="required">password</label><br/>
+	<input type="password" name="password" id="password"/><br/>
+	<tal:block tal:condition="form.is_error('password')"><div class="error"><tal:block tal:repeat="message form.errors_for('password')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="graduationYear" class="required">graduation year</label><br/>
+	<input type="number" min="1967" max="${settings.schoolYear + 10}" value="${form.data['graduationYear']}" name="graduationYear" id="graduationYear"/><br/>
+	<tal:block tal:condition="form.is_error('graduationYear')"><div class="error"><tal:block tal:repeat="message form.errors_for('graduationYear')">${message + '. '}</tal:block></div><br/></tal:block>
+	<strong>gender</strong><br/>
+	<select data-placeholder="choose a gender" class="chzn-select" name="gender" id="gender">
+		<option value="0"></option>
+		<option value="1" selected="selected" tal:condition="form.data['gender'] == '1'">male</option>
+		<option value="1" tal:condition="form.data['gender'] != '1'">male</option>
+		<option value="2" selected="selected" tal:condition="form.data['gender'] == '2'">female</option>
+		<option value="2" tal:condition="form.data['gender'] != '2'">female</option>
+		<option value="3" selected="selected" tal:condition="form.data['gender'] == '3'">other</option>
+		<option value="3" tal:condition="form.data['gender'] != '3'">other</option>
+	</select><br/>
+	<tal:block tal:condition="form.is_error('gender')"><div class="error"><tal:block tal:repeat="message form.errors_for('gender')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="nickname">nickname</label>
+		<small>If you provide a nickname, only registered members will see your real name.</small><br/>
+	<input type="text" name="nickname" id="nickname" value="${form.data['nickname']}"/><br/>
+	<tal:block tal:condition="form.is_error('nickname')"><div class="error"><tal:block tal:repeat="message form.errors_for('nickname')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="active">active member</label>
+		<small>Check this box if you currently participate in Leland Math Club. You will be able to register for events and receive club email notifications.</small><br/>
+		<input type="checkbox" name="active" id="active" value="true" checked="checked" tal:condition="form.data['active']"/>
+		<input type="checkbox" name="active" id="active" value="true" tal:condition="not form.data['active']"/>
+		<br/>
+	<tal:block tal:condition="form.is_error('active')"><div class="error"><tal:block tal:repeat="message form.errors_for('active')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="phoneNumber">cell phone number</label>
+		<small>We need this if you are going to an on-site math contest.</small>
+		<br/><input type="text" name="phoneNumber" id="phoneNumber" value="${form.data['phoneNumber']}"/><br/>
+	<tal:block tal:condition="form.is_error('phoneNumber')"><div class="error"><tal:block tal:repeat="message form.errors_for('phoneNumber')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="biography">about yourself</label><br/>
+		<textarea name="biography" id="biography" cols="32" rows="3">${form.data['biography']}</textarea><br/>
+	<tal:block tal:condition="form.is_error('biography')"><div class="error"><tal:block tal:repeat="message form.errors_for('biography')">${message + '. '}</tal:block></div><br/></tal:block>
+	<tal:block tal:content="structure recaptchaHTML"></tal:block>
+	<tal:block tal:condition="form.is_error('recaptcha_response_field')"><div class="error"><tal:block tal:repeat="message form.errors_for('recaptcha_response_field')">${message + '. '}</tal:block></div><br/></tal:block>
+	<input type="submit" name="submit" id="submit" value="register"/>
+	</fieldset>
+</form>
+</tal:block></html>

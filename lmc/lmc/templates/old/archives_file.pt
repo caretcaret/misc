@@ -1,0 +1,13 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+
+<h2>${filedata.name}</h2>
+<h4>for ${filedate}; uploaded ${submit_time} UTC<!-- by ${filedata.ownerid}--></h4>
+<h3 tal:condition="Permissions.UPLOAD_FILE in userdata['permissions']"><a href="${request.route_url('archives_edit', fileid=filedata.id)}">Edit file</a></h3>
+<div class="distinguished"><h3>${filedata.filename}</h3>
+${filedata.description}<hr/><h3><a href="${request.route_url('archives_download', fileid=filedata.id)}">
+Download</a></h3></div>
+
+</div></html>

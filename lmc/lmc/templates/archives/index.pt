@@ -1,0 +1,18 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+
+<h1>Presentation &amp; Contests Archives</h1>
+<p>Download previous math competitions, presentations, and other files that we use at math club for study or practice.
+</p>
+
+<h3 tal:condition="Permission.FILE & user.permissions == Permission.FILE"><a href="${request.route_url('archives_upload')}">Upload a File</a></h3>
+
+<table class="distinguished" tal:condition="fileList">
+	<thead><tr><th>Date</th><th>File</th><th>Filename</th></tr></thead>
+	<tbody><tal:block tal:repeat="file fileList"><tr><td><a href="${request.route_url('archives_file', fileid=file.id)}">${file.name}</a></td><td><a href="${request.route_url('archives_download', fileid=file.id)}">${file.filename}</a></td><td>${file.fileDate.strftime('%A, %B %d, %Y')}</td></tr></tal:block>
+	</tbody>
+</table>
+
+<div class="distinguished" tal:condition="not:fileList">There appears to be no files here!</div>
+
+</tal:block></html>

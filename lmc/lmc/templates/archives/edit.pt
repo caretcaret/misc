@@ -1,0 +1,34 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+
+<form id="editfile" name="editfile" method="post" action="${request.route_url('archives_edit', fileid=file.id)}" enctype="multipart/form-data">
+	<fieldset>
+	<input type="hidden" name="_csrf" id="_csrf" value="${request.session.get_csrf_token()}"/>
+	<legend>Edit File</legend>
+	<label for="fileUpload">file</label> <small>Only select something if you want to replace this file with a newer version.</small><br/><input type="file" name="fileUpload" id="fileUpload"/><br/>
+	<tal:block tal:condition="form.is_error('fileUpload')"><div class="error"><tal:block tal:repeat="message form.errors_for('fileUpload')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="filename" class="required">filename</label> <small>Remember to keep the extension type.</small><br/><input type="text" name="filename" id="filename" value="${form.data['filename']}"/><br/>
+	<tal:block tal:condition="form.is_error('filename')"><div class="error"><tal:block tal:repeat="message form.errors_for('filename')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="fileDate">date</label> <small>Enter a date if a specific date holds some relevance to this file. Otherwise, today's date will be used. Give a date in the format mm/dd/yyyy.</small><br/><input type="date" name="fileDate" id="fileDate" value="${form.data['fileDate']}"/><br/>
+	<tal:block tal:condition="form.is_error('fileDate')"><div class="error"><tal:block tal:repeat="message form.errors_for('fileDate')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="title" class="required">title</label> <small>This should be human-readable and uniquely reflect the contents of the file.</small><br/><input type="text" name="title" id="title" value="${form.data['title']}"/><br/>
+	<tal:block tal:condition="form.is_error('title')"><div class="error"><tal:block tal:repeat="message form.errors_for('title')">${message + '. '}</tal:block></div><br/></tal:block>
+	<label for="description">description</label> <small>This should be a longer description of the file, with any instructions, if necessary.</small><br/><textarea name="description" cols="32" rows="3" id="description">${form.data['description']}</textarea><br/>
+	<tal:block tal:condition="form.is_error('description')"><div class="error"><tal:block tal:repeat="message form.errors_for('description')">${message + '. '}</tal:block></div><br/></tal:block>
+	<!--!<label for="tags">tags</label> <small>Enter each tag on a new line. Keep the length of tags to a minimum.</small><br/><textarea name="tags" cols="32" rows="3" id="tags">
+<tal:block tal:repeat="tag tags">${tag}</tal:block></textarea><br/>-->
+	<input type="submit" name="edit" id="edit" value="edit"/>
+	</fieldset>
+</form>
+
+<form id="deletefile" name="deletefile" method="post" action="${request.route_url('archives_edit', fileid=file.id)}">
+	<fieldset>
+	<input type="hidden" name="_csrf" id="_csrf" value="${request.session.get_csrf_token()}"/>
+	<legend>Delete File</legend>
+	<label for="deleteCheck">confirm delete</label><br/>
+	<input type="checkbox" name="deleteCheck" id="deleteCheck"/><br/>
+	<input type="submit" name="delete" id="delete" value="delete"/>
+	</fieldset>
+</form>
+
+</tal:block></html>

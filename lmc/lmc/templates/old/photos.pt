@@ -1,0 +1,12 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+<h1>Photograph Gallery</h1>
+<p>
+Take a look at what goes on at our meetings, contests, or other events!
+</p>
+<h3><a href="${request.route_url('photos_new')}">Create New Album</a></h3>
+
+
+</div></html>

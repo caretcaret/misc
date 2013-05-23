@@ -1,0 +1,42 @@
+<html metal:use-macro="base">
+<tal:block metal:fill-slot="content">
+<tal:block tal:content="structure settings.homepageHTML"></tal:block>
+<table class="distinguished">
+	<tbody>
+	<tr>
+		<td rowspan="2"><a href="${request.route_url('events')}"><img src="${request.static_url('lmc:design/events.png')}" alt=""/></a></td>
+		<td><a href="${request.route_url('events')}"><h2>Events Organizer &amp; Calendar</h2></a></td>
+	</tr>
+	<tr><td><p>View information about previous and upcoming meetings and events.</p></td></tr>
+	<tr>
+		<td rowspan="2"><a href="${request.route_url('news')}"><img src="${request.static_url('lmc:design/news.png')}" alt=""/></a></td>
+		<td><a href="${request.route_url('news')}"><h2>News Updates</h2></a></td>
+	</tr>
+	<tr><td><p>Keep up-to-date with club activities.</p></td></tr>
+	<tr>
+		<td rowspan="2"><a href="${request.route_url('members')}"><img src="${request.static_url('lmc:design/members.png')}" alt=""/></a></td>
+		<td><a href="${request.route_url('members')}"><h2>Members List</h2></a></td>
+	</tr>
+	<tr><td><p>View the list of math club/team members.</p></td></tr>
+	<tr>
+		<td rowspan="2"><a href="${request.route_url('archives')}"><img src="${request.static_url('lmc:design/archives.png')}" alt=""/></a></td>
+		<td><a href="${request.route_url('archives')}"><h2>Presentation &amp; Contest Archives</h2></a></td>
+	</tr>
+	<tr><td><p>Download previous math competitions, presentations, and other files that we use at math club for study or practice.</p></td></tr>
+	<tr>
+		<td rowspan="2"><a href="${request.route_url('discuss')}"><img src="${request.static_url('lmc:design/discuss.png')}" alt=""/></a></td>
+		<td><a href="${request.route_url('discuss')}"><h2>Discuss</h2></a></td>
+	</tr>
+	<tr><td><p>Discuss topics, math-related or not, with Leland Math Club members.</p></td></tr>
+	<tr>
+		<td rowspan="2"><a href="${request.route_url('photos')}"><img src="${request.static_url('lmc:design/photos.png')}" alt=""/></a></td>
+		<td><a href="${request.route_url('photos')}"><h2>Photographs</h2></a></td>
+	</tr>
+	<tr><td><p>View photographs of previous events.</p></td></tr>
+	</tbody>
+</table>
+</tal:block>
+
+<tal:block metal:fill-slot="footerextra">Homepage last updated ${settings.timestamp} UTC</tal:block>
+
+</html>

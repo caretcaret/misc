@@ -1,0 +1,35 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+<p class="important" tal:condition="Permissions.UPLOAD_FILE not in userdata['permissions']">You are not authorized to edit files.</p>
+
+<p class="important" tal:condition="messages">
+${'The following errors were' if len(messages) &gt; 1 else 'An error was'} encountered:
+<tal:block tal:repeat="message messages"><br/>${message}</tal:block>
+</p>
+
+<form id="archivesedit" name="archivesedit" method="post" action="${request.route_url('archives_edit', fileid=fileid)}" tal:condition="Permissions.UPLOAD_FILE in userdata['permissions']" enctype="multipart/form-data">
+	<fieldset>
+	<legend>Edit File</legend>
+	<label for="fileupload">file</label> <small>Only select something if you want to replace this file with a newer version.</small><br/><input type="file" name="fileupload" id="fileupload"/><br/>
+	<label for="filename" class="required">filename</label> <small>Remember to keep the extension type.</small><br/><input type="text" name="filename" id="filename" value="${filedata.filename}"/><br/>
+	<label for="filedate">date</label> <small>Enter a date if you want to give a specific date to this file. Otherwise, today's date will be used. Give a date in the format YYYY-MM-DD.</small><br/><input type="date" name="filedate" id="filedate" value="${filedata.filedate}"/><br/>
+	<label for="readablename" class="required">name</label> <small>This should be human-readable and uniquely reflect the contents of the file.</small><br/><input type="text" name="readablename" id="readablename" value="${filedata.name}"/><br/>
+	<label for="description">description</label> <small>This should be a longer description of the file, with any instructions, if necessary.</small><br/><textarea name="description" cols="32" rows="3" id="description">${filedata.description}</textarea><br/>
+	<!--!<label for="tags">tags</label> <small>Enter each tag on a new line. Keep the length of tags to a minimum.</small><br/><textarea name="tags" cols="32" rows="3" id="tags">
+<tal:block tal:repeat="tag tags">${tag}</tal:block></textarea><br/>-->
+	<input type="submit" name="edit" id="edit" value="edit"/>
+	</fieldset>
+</form>
+
+<form id="archivesdelete" name="archivesdelete" method="post" action="${request.route_url('archives_edit', fileid=fileid)}" tal:condition="Permissions.UPLOAD_FILE in userdata['permissions']">
+	<fieldset>
+	<legend>Delete File</legend>
+	<label for="deletecheck">confirm delete</label><br/>
+	<input type="checkbox" name="deletecheck" id="deletecheck"/><br/>
+	<input type="submit" name="delete" id="delete" value="delete"/>
+	</fieldset>
+</form>
+
+</div></html>

@@ -1,0 +1,468 @@
+/*** Leland Math Club main css by Jeffrey Zhang, 2011 September 10 ***/
+
+/*** RESET CSS ***/
+/*** Reset Reloaded by Eric Meyer, 2007 May 04 ***/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+body {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+ol, ul {
+	list-style: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}
+
+/*** BEGIN SITE STYLING ***/
+body {
+	color: #000;
+	background-color: #f3f4f9;
+	font-family: "Trebuchet MS", Verdana, Geneva, sans-serif;
+	font-size: 93%;
+	line-height: 138.5%;
+}
+#container {
+	width: 935px;
+	margin: auto;
+}
+#header {
+	background: url(header-bg.png) repeat-x;
+	height: 87px;
+	background-position: bottom;
+	display: block;
+}
+#header-contain {
+	width: 935px;
+	margin: auto;
+	background: url(header-bg.png) repeat-x;
+	height: 87px;
+	background-position: bottom;
+}
+#logo {
+	display: inline;
+	width: 325px;
+	height: 75px;
+	float: left;
+}
+#logo a {
+	display: inline;
+	width: 325px;
+	height: 75px;
+	float: left;
+}
+#header-contain ul li {
+	display: inline;
+	width: 76px;
+	height: 87px;
+	float: left;
+}
+#header-contain ul li a {
+	width: 76px;
+	height: 42px;
+	text-align: center;
+	float: left;
+	padding-top: 40px;
+	background-repeat: no-repeat;
+	background-position: center 10px;
+}
+#navhome a {
+	background-image: url(home.png);
+}
+#navevents a {
+	background-image: url(events.png);
+}
+#navnews a {
+	background-image: url(news.png);
+}
+#navmembers a {
+	background-image: url(members.png);
+}
+#navarchives a {
+	background-image: url(archives.png);
+}
+#navdiscuss a {
+	background-image: url(discuss.png);
+}
+#navphotos a {
+	background-image: url(photos.png);
+}
+#navadmin {
+	color: #fff;
+	background: url(navadmin-bg.png) repeat-x;
+}
+#navadmin a {
+	color: #fff;
+	display: inline;
+	float: left;
+}
+#breadcrumbs {
+	color: #696969;
+	display: inline;
+	float: left;
+	font-size: 85%;
+}
+#breadcrumbs a {
+	color: #696969;
+	font-style: italic;
+}
+#user {
+	display: inline;
+	float: right;
+	font-size: 85%;
+}
+#content {
+	clear: both;
+	padding: 10px;
+}
+#footer {
+	margin: 15px;
+	clear: both;
+}
+a:link, a:visited {
+	text-decoration: none;
+	color: #1773c1;
+}
+a:hover {
+	text-decoration: underline;
+	color: #53a8ff;
+}
+a:active {
+	color: #f73939;
+}
+a:focus {
+	outline: 1px dotted;
+}
+h1 {
+	font-size: 175%;
+	font-family: Georgia, "Palatino Linotype", serif;
+	font-weight: bold;
+	margin-bottom: 5px;
+	margin-top: 15px;
+}
+h2 {
+	font-size: 153.9%;
+	font-family: Georgia, "Palatino Linotype", serif;
+	margin-bottom: 3px;
+	margin-top: 10px;
+}
+h3 {
+	font-size: 131%;
+	font-family: Georgia, "Palatino Linotype", serif;
+	font-weight: bold;
+	margin-bottom: 1.25%;
+}
+h4 {
+	font-size: 100%;
+	font-weight: bold;
+	margin-bottom: 0.75%;
+}
+h5 {
+	font-size: 93%;
+	font-weight: bold;
+}
+h6 {
+	font-size: 77%;
+	font-weight: bold;
+}
+td, th {
+	vertical-align: middle;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+acronym, abbr {
+	border-bottom: 1px dotted;
+}
+em, dfn, var, cite {
+	font-style: italic;
+}
+strong {
+	font-weight: bold;
+}
+big {
+	font-size: 131%;
+}
+code, samp, kbd, tt {
+	font-family: "Courier New", monospace;
+}
+dt {
+	font-weight: bold;
+}
+dd {
+	font-style: italic;
+	text-indent: 10px;
+}
+p {
+	margin-bottom: 7px;
+}
+p.distinguished, table.distinguished, div.distinguished {
+	background-color: #fff;
+	padding: 15px;
+	margin: 10px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	width: 915px;
+}
+div.distinguished {
+	margin: 0;
+	width: 900px;
+}
+.photo-right img.distinguished {
+	border: 2px solid #ffff80;
+}
+.photo-right img {
+	border: 2px solid #ffffff;
+}
+.important {
+	background-color: #fee;
+	padding: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: #a00 1px solid;
+	margin: auto;
+}
+.success {
+	background-color: #efe;
+	padding: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: #0a0 1px solid;
+	margin: auto;
+}
+.error {
+	color: #ff0000;
+}
+a:link.distinguished, a:visited.distinguished {
+	text-decoration: none;
+	color: #f73b3b;
+}
+a:hover.distinguished {
+	text-decoration: underline;
+	color: #fa8585;
+}
+a:active.distinguished {
+	color: #820ff5;
+}
+table.photogrid td {
+	height: 250px;
+	width: 220px;
+	text-align: center;
+	border: 1px solid #fff;
+}
+table.photogrid td a {
+	display: table-cell;
+	height: 250px;
+	width: 220px;
+	vertical-align: middle;
+}
+table.photogrid td img {
+	height: 175px;
+	width: 175px;
+}
+table.photogrid td a:hover {
+	text-decoration: none;
+	font-weight: bold;
+	color: #1773c1;
+	background-color: #fffd0;
+}
+table.photogrid td:hover {
+	background-color: #ffffd0;
+	border: 1px solid #dfdf80;
+}
+.datetime {
+	color: #808080;
+	font-style: italic;
+}
+table.photogrid td:hover .datetime {
+	font-weight: normal;
+}
+div.photo-left {
+	width: 640px;
+	float: left;
+	background-color: #fff;
+	padding: 15px;
+	margin: 7.5px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	text-align: center;
+}
+div.photo-right {
+	width: 185px;
+	float: right;
+	background-color: #fff;
+	padding: 15px;
+	margin: 7.5px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	text-align: center;
+}
+div.albumgrid {
+	width: 935px;
+	background-color: #fff;
+	padding: 15px;
+	margin: 7.5px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	text-align: center;
+}
+form {
+	margin: auto;
+	margin-top: 15px;
+	background-color: #fff;
+	padding: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+fieldset {
+	border: 0;
+	padding: 15px;
+}
+legend {
+	padding: 7px;
+	font-size: 150%;
+	font-family: Georgia, "Palatino Linotype", serif;
+	font-weight: bold;
+}
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], input[type="datetime"], textarea {
+	margin-bottom: 10px;
+	border: 1px solid #aaa;
+}
+input:focus, textarea:focus {
+	-webkit-box-shadow: 0 0 5px rgba(0,0,0,.3);
+	-moz-box-shadow   : 0 0 5px rgba(0,0,0,.3);
+	-o-box-shadow     : 0 0 5px rgba(0,0,0,.3);
+	box-shadow        : 0 0 5px rgba(0,0,0,.3);
+	border: 1px solid #5897fb;
+}
+select {
+	width: 350px;
+}
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], input[type="datetime"] {
+	width: 350px;
+	height: 20px;
+}
+.required:after {
+	color: #f00;
+	content: "*";
+}
+small {
+	color: #606060;
+	font-size: 77%;
+}
+small:before {
+	content: "(";
+}
+small:after {
+	content: ")";
+}
+blockquote, q {
+	quotes: '\201c' '\201d' '\2018' '\2019';
+}
+blockquote > *:before, q:before {
+	content: open-quote;
+}
+blockquote > *:after, q:after {
+	content: close-quote;
+}
+sub {
+	vertical-align: sub;
+	font-size: 77%;
+}
+sup {
+	vertical-align: super;
+	font-size: 77%;
+}
+textarea {
+	width: 100%;
+}
+label {
+	font-weight: bold;
+}
+label.radio {
+	font-weight: normal;
+}
+#content ul {
+	list-style: disc inside;
+}
+#content ol {
+	list-style: decimal inside;
+}
+#content caption {
+	text-align: center;
+	font-weight: bold;
+}
+hr {
+	width: 869px;
+	height: 1px;
+	border: 0;
+	color: #808080;
+	background-color: #808080;
+}
+pre {
+	font-family: "Courier New", monospace;
+	white-space: pre-wrap;
+	margin-left: auto;
+	margin-right: auto;
+	width: 915px;
+	border: 1px solid #808080;
+	padding: 5px;
+}
+blockquote {
+	width: 915px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#content th {
+	font-weight: bold;
+}
+#content thead th {
+	border-bottom: 1px solid #808080;
+}
+#content tfoot th {
+	border-top: 1px solid #808080;
+}
+.latex {
+	display: inline;
+}

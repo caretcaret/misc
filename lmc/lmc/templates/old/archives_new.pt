@@ -1,0 +1,25 @@
+<!doctype html>
+<html metal:use-macro="base.macros['base']">
+<div metal:fill-slot="content" id="content">
+
+<div class="important" tal:condition="Permissions.UPLOAD_FILE not in userdata['permissions']">You are not authorized to upload files.</div>
+
+<div class="important" tal:condition="messages">
+${'The following errors were' if len(messages) &gt; 1 else 'An error was'} encountered:
+<tal:block tal:repeat="message messages"><br/>${message}</tal:block>
+</div>
+
+<form id="archivesform" name="archivesform" method="post" action="${request.route_url('archives_new')}" tal:condition="Permissions.UPLOAD_FILE in userdata['permissions']" enctype="multipart/form-data">
+	<fieldset>
+	<legend>Upload File</legend>
+	<label for="fileupload" class="required">file</label><br/><input type="file" name="fileupload" id="fileupload"/><br/>
+	<label for="filedate">date</label> <small>Enter a date if you want to give a specific date to this file. Otherwise, today's date will be used. Give a date in the format YYYY-MM-DD.</small><br/><input type="date" name="filedate" id="filedate" value="${filedate}"/><br/>
+	<label for="readablename" class="required">name</label> <small>This should be human-readable and uniquely reflect the contents of the file.</small><br/><input type="text" name="readablename" id="readablename" value="${readablename}"/><br/>
+	<label for="description">description</label> <small>This should be a longer description of the file, with any instructions, if necessary.</small><br/><textarea name="description" cols="32" rows="3" id="description">${description}</textarea><br/>
+	<label for="tags">tags</label> <small>Enter each tag on a new line. Keep the length of tags to a minimum.</small><br/><textarea name="tags" cols="32" rows="3" id="tags">
+<tal:block tal:repeat="tag tags">${tag}</tal:block></textarea><br/>
+	<input type="submit" name="upload" id="upload" value="upload"/> <small>Click only once.</small>
+	</fieldset>
+</form>
+
+</div></html>
