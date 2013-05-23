@@ -1,0 +1,38 @@
+Hypothesis: The number of characters to learn to get partial fluency is:
+Let A_0 be the empty set. Define f(X) = number of occurrences of character compounds made from set X and A_i = A_{i-1} \cup argmax_x f(A_i \cup \{x\}). Let g(i) = f(A_i).
+Then the number of characters to learn to get intermediate fluency is the end of the first "hump" of dg/di.
+
+Data from http://expsy.ugent.be/subtlex-ch/ (2010)
+
+Why this data?
+The data source were television show subtitles, which more closely matches everyday speech than texts.
+
+Why character compounds?
+
+Suppose there are three characters A, B, C, D with the following compound occurrence rates:
+
+A 40
+AB 20
+B 0
+BC 0
+ABC 0
+AC 0
+C 1
+CD 39
+ACD 0
+ABCD 0
+BCD 0
+BD 0
+ABD 0
+AD 0
+D 0
+
+The characters have occurrence rates:
+A 60
+B 20
+C 40
+D 39
+
+We learn A first, since this gives us A=40 words (more than B=0, C=1, D=0). Should we learn B, C, or D next?
+Looking at the character occurrence rates, it looks like we should learn C next. If we learn A and C, but haven't gotten around to learning B or D, we know A=40 and AC=41, which gives us 41%.
+By learning B, we can get A=40 and AB=20, which gives us 60%.
