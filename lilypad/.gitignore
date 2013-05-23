@@ -1,0 +1,3 @@
+# ignore cached files
+/cache/
+gitit.log
