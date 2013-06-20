@@ -4,7 +4,7 @@
 from pprint import pformat
 from collections import defaultdict
 from copy import deepcopy
-from math import log1p
+from math import log1p, log
 
 
 class Round(object):
@@ -67,6 +67,7 @@ class Bet(object):
         self.probability = reduce(lambda a, b: a * b, [arena_probability[pick] if pick is not None else 1.0 for pick, arena_probability in zip(self.pirates, self.round.probability)])
         self.expected_gross = self.probability * self.gross_payout
         self.expected_net = self.expected_gross - self.amount
+        self.expected_log = log(self.expected_gross / self.amount) * self.probability
         self.expected_gross_units = self.expected_gross / self.amount
         self.expected_net_units = self.expected_net / self.amount
 
@@ -274,6 +275,14 @@ def highest_expected_net(round_, final=True):
         print str(by_expected_net) + by_expected_net.calculation_str()
     return by_expected_net
 
+def highest_log(round_, final=True):
+    by_log = BetList.all_bets(round_)
+    by_log.sort(key=lambda bet: -bet.expected_log)
+    if final:
+        by_log.truncate(10)
+        print "Strategy: Pick bets with highest probability * log payout."
+        print str(by_log) + by_log.calculation_str()
+    return by_log
 
 def highest_probability(round_, final=True):
     by_probability = BetList.all_bets(round_)
@@ -567,10 +576,22 @@ if __name__ == '__main__':
                    [6, 13, 7, 2],
                    [7, 2, 10, 13],
                    [7, 9, 13, 2]])
-    current_round = r4839
-    highest_expected_net(current_round)
+    r5179 = Round(5179, 5964,
+                [[0.13621931816438876, 0.19421968959000196, 0.5549245378593004, 0.11463645438630883],
+                 [0.5271418702538132, 0.09640698268315831, 0.1368132414568298, 0.23963790560619877],
+                 [0.10087423263617976, 0.22749899951588687, 0.3469835291950587, 0.32464323865287464],
+                 [0.6962276922812481, 0.16825609965324081, 0.02869328778266393, 0.1068229202828473],
+                 [0.3100954209645754, 0.2322238587681339, 0.37983331561534345, 0.07784740465194744]],
+                [[13, 9, 2, 7],
+                 [2, 11, 5, 2],
+                 [13, 7, 2, 2],
+                 [2, 9, 13, 7],
+                 [4, 5, 2, 9]])
+    current_round = r5179
+    highest_expected_net(current_round).daqtools()
     best_rankings(current_round).daqtools()
-    rankings_walk(current_round)
+    #rankings_walk(current_round).daqtools()
     highest_probability(current_round)
-    highest_utility(current_round).daqtools()
+    #highest_utility(current_round).daqtools()
+    #highest_log(current_round).daqtools()
     #cumulative_highest_heuristic(current_round)
