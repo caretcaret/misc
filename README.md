@@ -1,4 +1,4 @@
-misc v0
+misc v0.1
 ====
 
 Small, miscellaneous pieces of code that don't deserve their own repository (yet?).
