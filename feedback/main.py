@@ -1,8 +1,9 @@
-from bottle import route, run, static_file, template, error
+#!/usr/bin/env python
+from bottle import route, run, static_file, template, error, default_app
 
 @route('/')
-def landing():
-  return "Hello World!"
+def home():
+  return server_static("index.html")
 
 @route('/static/<filename>')
 def server_static(filename):
@@ -15,7 +16,10 @@ def submit_first():
 
 @error(404)
 def error404(error):
- return "404 File Not Found"
+ return "Dear user, This is a 404 Page Not Found. Sincerely, bottle.py <3"
 
-run(host='localhost', port=8080, debug=True)
+if __name__ == "__main__":
+  run(host='localhost', port=8080, debug=True, reloader=True)
+else:
+  application = default_app()
 

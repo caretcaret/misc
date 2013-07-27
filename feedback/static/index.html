@@ -1,0 +1,52 @@
+<!doctype html>
+<html ng-app>
+<head>
+  <title>Feedback</title>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <style>
+    /* A one-off styling. */
+    @import url(http://fonts.googleapis.com/css?family=Lato:300);
+    html, body { height: 100%; }
+    ::selection { background: rgb(192, 223, 255); }
+    body {
+      width: 700px;
+      margin: auto;
+      background-color: rgb(56, 35, 20);
+      background-image: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,0.3),rgba(255,255,255,0)), url(static/bg.png);
+      background-image: radial-gradient(ellipse at center, rgba(255,255,255,0.3),rgba(255,255,255,0)), url(static/bg.png);
+      color: white;
+      font-size: 20px;
+      font-family: 'Lato', sans-serif;
+      text-shadow: 1px 1px rgb(64, 64, 64);
+    }
+    em { color: rgb(177, 255, 168); font-style: normal; }
+    a { color: rgb(255, 246, 168); text-decoration: none; transition: 0.35s; -webkit-transition: 0.35s; }
+    a:hover { text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); }
+    a:active { text-shadow: 0 0 8px rgba(0, 0, 0, 0.8); }
+    h1 { font-size: 48px; font-weight: normal; }
+    h2 { font-size: 24px; font-weight: normal; font-style: italic; }
+    p { line-height: 1.4em; }
+    /* vertical centering */
+    body { display: table; }
+    article { display: table-cell; vertical-align: middle; }
+  </style>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+  <script>
+  function PageCtrl($scope, $http) {
+    $scope.page = 0;
+  }
+  </script>
+</head>
+<body ng-controller="PageCtrl">
+  <article class="text-center" id="landing" ng-show="page === 0">
+    <h1>Welcome!</h1>
+    <h2>Do you know who I am?!</h2>
+    <form>
+      <button class="btn btn-large">Nope...</button>
+      <button class="btn btn-large">Kinda...?</button>
+      <button class="btn btn-large">Of course!</button>
+    </form>
+  </article>
+</body>
+</html>
+
