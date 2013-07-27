@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="feedback">
 <head>
   <title>Feedback</title>
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
@@ -29,23 +29,113 @@
     /* vertical centering */
     body { display: table; }
     article { display: table-cell; vertical-align: middle; }
+    .animate-enter {
+      -webkit-transition: 1s linear all; /* Chrome */
+      transition: 1s linear all;
+      opacity: 0;
+    }
+ 
+    .animate-enter.animate-enter-active {
+      opacity: 1;
+    }
   </style>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-cookies.min.js"></script>
   <script>
-  function PageCtrl($scope, $http) {
-    $scope.page = 0;
-  }
+  var feedback = angular.module('feedback', ['ngCookies']);
+  feedback.controller('PageCtrl', function PageCtrl($scope, $http, $cookies) {
+    if ($cookies.page) {
+      $scope.page = $cookies.page;
+    } else {
+      $scope.page = 0;
+    }
+    $scope.form = {};
+    $scope.toPage = function(page) {
+      $scope.page = page;
+    };
+    $scope.cookiePage = function(page) {
+      $cookies.page = page.toString();
+    }
+    $scope.submit = function(page) {
+      $http.post('/things-go-in', $scope.form)
+      .success(function(data) {
+        console.log(data);
+        $scope.toPage(6);
+        $scope.cookiePage(6);
+        $scope.form = {};
+      });
+    }
+  });
   </script>
 </head>
 <body ng-controller="PageCtrl">
-  <article class="text-center" id="landing" ng-show="page === 0">
-    <h1>Welcome!</h1>
-    <h2>Do you know who I am?!</h2>
-    <form>
-      <button class="btn btn-large">Nope...</button>
-      <button class="btn btn-large">Kinda...?</button>
-      <button class="btn btn-large">Of course!</button>
-    </form>
+  <article ng-switch="page" ng-animate="'animate'" class="text-center">
+    <section id="loading" ng-switch-when="-1"></section>
+    <section id="landing" ng-switch-when="0">
+      <h1>Welcome!</h1>
+      <h2>So, you know me, right?</h2>
+      <form>
+        <button class="btn btn-large" ng-click="toPage(1);cookiePage(2);">Not at all...</button>
+        <button class="btn btn-large" ng-click="toPage(4);cookiePage(4);">Kinda...?</button>
+        <button class="btn btn-large">Of course!</button>
+      </form>
+    </section>
+    <section id="go-away1" ng-switch-when="1">
+      <h1>What are you doing here?</h1>
+      <h2>Why are we Facebook friends, then? <small>shoo!</small></h2>
+    </section>
+    <section id="go-away2" ng-switch-when="2" ng-init="cookiePage(3)">
+      <h1>Hey.</h1>
+      <h2>I thought I told you to go away. :/</h2>
+    </section>
+    <section id="go-away3" ng-switch-when="3">
+      <h1>So you're still here?</h1>
+      <h2>Hmm. Fine.</h2>
+      <form>
+        <button class="btn btn-large" ng-click="toPage(0);cookiePage(0);">Let's try this again.</button>
+      </form>
+    </section>
+    <section id="kinda" ng-switch-when="4">
+      <h1>Yeah? Okay.</h1>
+      <h2>Let's not waste your time.</h2>
+      <p>Basically, I'm trying get some valuable personal feedback. I want a critical reflection of how &ldquo;I'm doing,&rdquo; whatever that means. You'll be totally anonymous if you want to. Sound good?</p>
+      <button class="btn btn-large" ng-click="toPage(1);cookiePage(2);">NO D:</button>
+      <button class="btn btn-large" ng-click="toPage(5);cookiePage(5);">Sure!</button>
+    </section>
+    <section id="kinda-form" ng-switch-when="5">
+      <h1><em>Thanks!</em> You're awesome.</h1>
+      <h2>Let's make this super simple. None of it is required.</h2>
+      <form class="form-horizontal" ng-submit="submit()">
+        <div class="control-group">
+          <label for="kinda-identity" class="control-label">Who are you?</label>
+          <div class="controls">
+            <input type="text" class="input-block-level" id="kinda-identity" ng-model="form.identity" placeholder="Anonymous">
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="kinda-feedback" class="control-label">Feedback</label>
+          <div class="controls">
+            <textarea rows="5" class="input-block-level" placeholder="How can I become a better person? You know, the shit people say behind my back, or how weird I am. Or am I not weird enough? idk. I should talk more. Right? Right?! How to become a better member of society. Or whatever. Random stuff that I might not be noticing, but you are." ng-model="form.feedback"></textarea>
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="kinda-praise" class="control-label">Praise</label>
+          <div class="controls">
+            <textarea rows="5" class="input-block-level" placeholder="Praise. Because, not is all bad. I hope. I have no idea what my good qualities are, frankly. This will help me get to know them and improve even more." ng-model="form.praise"></textarea>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Submit</label>
+          <div class="controls">
+            <input type="submit" class="btn btn-large btn-danger input-block-level" value="{{{false: 'lol, wut. I don\'t really know who you are', true: 'Done!'}[!!(form.feedback || form.praise)]}}">
+          </div>
+        </div>
+      </form>
+    </section>
+    <section id="kinda-done" ng-switch-when="6" ng-init="cookiePage(0);">
+      <h1>That's it!</h1>
+      <h2>Thanks so much! I'll take the time to look it over.</h2>
+    </section>
   </article>
 </body>
 </html>

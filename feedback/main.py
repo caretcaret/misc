@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from bottle import route, run, static_file, template, error, default_app
+from bottle import route, run, static_file, template, error, default_app, request
 
 @route('/')
 def home():
@@ -9,10 +9,11 @@ def home():
 def server_static(filename):
   return static_file(filename, root='./static')
 
-@route('/first', method='POST')
-def submit_first():
-  request.json
-  return None
+@route('/things-go-in', method='POST')
+def submit():
+  with open('responses.txt', 'a') as response_file:
+    response_file.write(str(request.json) + "\n")
+  return {'accepted': True}
 
 @error(404)
 def error404(error):
@@ -22,4 +23,3 @@ if __name__ == "__main__":
   run(host='localhost', port=8080, debug=True, reloader=True)
 else:
   application = default_app()
-
